@@ -1,2 +1,3 @@
 # unexpected-moment
-Moment.js plugin for unexpected
+
+Unexpected plugin for [Moment.js](http://momentjs.com/)
