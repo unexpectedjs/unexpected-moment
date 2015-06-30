@@ -1,0 +1,29 @@
+{
+  "name": "unexpected-moment",
+  "version": "0.0.0",
+  "description": "Unexpected plugin for Moment.js",
+  "main": "lib/unexpected-moment.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joelmukuthu/unexpected-moment.git"
+  },
+  "keywords": [
+    "unexpected",
+    "moment.js"
+  ],
+  "author": {
+      "name": "Joel Mukuthu",
+      "email": "joelmukuthu@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joelmukuthu/unexpected-moment/issues"
+  },
+  "homepage": "https://github.com/joelmukuthu/unexpected-moment"
+}
