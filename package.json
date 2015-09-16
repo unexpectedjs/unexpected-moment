@@ -7,23 +7,44 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "jshint .",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/joelmukuthu/unexpected-moment.git"
+    "url": "git+https://github.com/joelmukuthu/unexpected-moment.git"
   },
   "keywords": [
     "unexpected",
     "moment.js"
   ],
   "author": {
+    "name": "Joel Mukuthu",
+    "email": "joelmukuthu@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Sune Simonsen",
+      "email": "sune@we-knowhow.dk"
+    },
+    {
       "name": "Joel Mukuthu",
       "email": "joelmukuthu@gmail.com"
-  },
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/joelmukuthu/unexpected-moment/issues"
   },
-  "homepage": "https://github.com/joelmukuthu/unexpected-moment"
+  "homepage": "https://github.com/joelmukuthu/unexpected-moment",
+  "peerDependencies": {
+    "moment": "2",
+    "unexpected": "8 || 9"
+  },
+  "devDependencies": {
+    "jshint": "2.8.0",
+    "mocha": "2.3.2",
+    "sinon": "1.16.1",
+    "unexpected": "9.11.1"
+  }
 }
