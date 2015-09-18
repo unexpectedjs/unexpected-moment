@@ -24,17 +24,9 @@ describe('unexpected-moment', function () {
         expect(new Date(), 'not to be a moment');
     });
 
-    it('does not falsely identify an object as an instance as a moment.js instance', function () {
-        expect({}, 'not to be a moment');
-    });
-
     it('identifies a moment as equal to it\'s clone', function () {
         var m = moment();
         expect(m, 'to equal', m.clone());
-    });
-
-    it('identifies a moment as equal to the same moment in UTC', function () {
-        expect(moment(1), 'to equal', moment.utc(1));
     });
 
     it('identifies two unequal moments', function () {
