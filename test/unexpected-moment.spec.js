@@ -8,8 +8,24 @@ describe('unexpected-moment', function () {
         .installPlugin(unexpectedMoment);
 
     var clock;
+    var oneMillisecond;
+    var oneSecond;
+    var oneMinute;
+    var oneHour;
+    var oneDay;
+    var oneWeek;
+    var oneMonth;
+    var oneYear;
     before(function () {
         clock = sinon.useFakeTimers();
+        oneMillisecond = 1;
+        oneSecond = moment.duration(1, 'second').valueOf();
+        oneMinute = moment.duration(1, 'minute').valueOf();
+        oneHour = moment.duration(1, 'hour').valueOf();
+        oneDay = moment.duration(1, 'day').valueOf();
+        oneWeek = moment.duration(1, 'week').valueOf();
+        oneMonth = moment.duration(1, 'month').valueOf();
+        oneYear = moment.duration(1, 'year').valueOf();
     });
 
     after(function () {
@@ -74,7 +90,6 @@ describe('unexpected-moment', function () {
         expect(moment(1), 'to equal', moment(2), 'in months');
         expect(moment(1), 'to equal', moment(2), 'in years');
 
-        var oneSecond = moment.duration(1, 'second').valueOf();
         expect(moment(oneSecond), 'not to equal', moment(oneSecond + oneSecond), 'in milliseconds');
         expect(moment(oneSecond), 'not to equal', moment(oneSecond + oneSecond), 'in seconds');
         expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in minutes');
@@ -84,8 +99,6 @@ describe('unexpected-moment', function () {
         expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in months');
         expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in years');
 
-
-        var oneMinute = moment.duration(1, 'minute').valueOf();
         expect(moment(oneMinute), 'not to equal', moment(oneMinute + oneMinute), 'in milliseconds');
         expect(moment(oneMinute), 'not to equal', moment(oneMinute + oneMinute), 'in seconds');
         expect(moment(oneMinute), 'not to equal', moment(oneMinute + oneMinute), 'in minutes');
@@ -95,7 +108,6 @@ describe('unexpected-moment', function () {
         expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in months');
         expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in years');
 
-        var oneHour = moment.duration(1, 'hour').valueOf();
         expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in milliseconds');
         expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in seconds');
         expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in minutes');
@@ -105,7 +117,6 @@ describe('unexpected-moment', function () {
         expect(moment(oneHour), 'to equal', moment(oneHour + oneHour), 'in months');
         expect(moment(oneHour), 'to equal', moment(oneHour + oneHour), 'in years');
 
-        var oneDay = moment.duration(1, 'day').valueOf();
         expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in milliseconds');
         expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in seconds');
         expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in minutes');
@@ -115,7 +126,6 @@ describe('unexpected-moment', function () {
         expect(moment(oneDay), 'to equal', moment(oneDay + oneDay), 'in months');
         expect(moment(oneDay), 'to equal', moment(oneDay + oneDay), 'in years');
 
-        var oneWeek = moment.duration(1, 'week').valueOf();
         expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in milliseconds');
         expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in seconds');
         expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in minutes');
@@ -125,7 +135,6 @@ describe('unexpected-moment', function () {
         expect(moment(oneWeek), 'to equal', moment(oneWeek + oneWeek), 'in months');
         expect(moment(oneWeek), 'to equal', moment(oneWeek + oneWeek), 'in years');
 
-        var oneMonth = moment.duration(1, 'month').valueOf();
         expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in milliseconds');
         expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in seconds');
         expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in minutes');
@@ -135,7 +144,6 @@ describe('unexpected-moment', function () {
         expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in months');
         expect(moment(oneMonth), 'to equal', moment(oneMonth + oneMonth), 'in years');
 
-        var oneYear = moment.duration(1, 'year').valueOf();
         expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in milliseconds');
         expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in seconds');
         expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in minutes');
@@ -144,5 +152,90 @@ describe('unexpected-moment', function () {
         expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in weeks');
         expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in months');
         expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in years');
+    });
+
+    it('identifies if a moment is the start of a unit of time', function () {
+        expect(moment(123456).startOf('second'), 'to be the start of second');
+        expect(moment(123456).startOf('minute'), 'to be the start of minute');
+        expect(moment(123456).startOf('hour'), 'to be the start of hour');
+        expect(moment(123456).startOf('day'), 'to be the start of day');
+        expect(moment(123456).startOf('week'), 'to be the start of week');
+        expect(moment(123456).startOf('isoWeek'), 'to be the start of isoWeek');
+        expect(moment(123456).startOf('month'), 'to be the start of month');
+        expect(moment(123456).startOf('quarter'), 'to be the start of quarter');
+        expect(moment(123456).startOf('year'), 'to be the start of year');
+
+        expect(moment(123456).startOf('second').add(1), 'not to be the start of second');
+        expect(moment(123456).startOf('minute').add(1, 'second'), 'not to be the start of minute');
+        expect(moment(123456).startOf('hour').add(1, 'second'), 'not to be the start of hour');
+        expect(moment(123456).startOf('day').add(1, 'second'), 'not to be the start of day');
+        expect(moment(123456).startOf('week').add(1, 'second'), 'not to be the start of week');
+        expect(moment(123456).startOf('isoWeek').add(1, 'second'), 'not to be the start of isoWeek');
+        expect(moment(123456).startOf('month').add(1, 'second'), 'not to be the start of month');
+        expect(moment(123456).startOf('quarter').add(1, 'second'), 'not to be the start of quarter');
+        expect(moment(123456).startOf('year').add(1, 'second'), 'not to be the start of year');
+    });
+
+    it('identifies if a moment is the end of a unit of time', function () {
+        expect(moment(123456).endOf('second'), 'to be the end of second');
+        expect(moment(123456).endOf('minute'), 'to be the end of minute');
+        expect(moment(123456).endOf('hour'), 'to be the end of hour');
+        expect(moment(123456).endOf('day'), 'to be the end of day');
+        expect(moment(123456).endOf('week'), 'to be the end of week');
+        expect(moment(123456).endOf('isoWeek'), 'to be the end of isoWeek');
+        expect(moment(123456).endOf('month'), 'to be the end of month');
+        expect(moment(123456).endOf('quarter'), 'to be the end of quarter');
+        expect(moment(123456).endOf('year'), 'to be the end of year');
+
+        expect(moment(123456).endOf('second').subtract(1), 'not to be the end of second');
+        expect(moment(123456).endOf('minute').subtract(1, 'second'), 'not to be the end of minute');
+        expect(moment(123456).endOf('hour').subtract(1, 'second'), 'not to be the end of hour');
+        expect(moment(123456).endOf('day').subtract(1, 'second'), 'not to be the end of day');
+        expect(moment(123456).endOf('week').subtract(1, 'second'), 'not to be the end of week');
+        expect(moment(123456).endOf('isoWeek').subtract(1, 'second'), 'not to be the end of isoWeek');
+        expect(moment(123456).endOf('month').subtract(1, 'second'), 'not to be the end of month');
+        expect(moment(123456).endOf('quarter').subtract(1, 'second'), 'not to be the end of quarter');
+        expect(moment(123456).endOf('year').subtract(1, 'second'), 'not to be the end of year');
+    });
+
+    it('does not mutate the moment objects when checking for equality', function () {
+        var moment1 = moment(1000);
+        var moment2 = moment(123456);
+        var moment1Formartted = moment1.format();
+        var moment2Formartted = moment2.format();
+        expect(moment1, 'not to equal', moment2);
+        expect(moment1Formartted, 'to equal', moment1.format());
+        expect(moment2Formartted, 'to equal', moment2.format());
+    });
+
+    it('does not mutate the moment objects when checking for equality at various granularity levels', function () {
+        var moment1 = moment(1000);
+        var moment2 = moment(1500);
+        var moment1Formartted = moment1.format();
+        var moment2Formartted = moment2.format();
+        expect(moment1, 'to equal', moment2, 'in seconds');
+        expect(moment1Formartted, 'to equal', moment1.format());
+        expect(moment2Formartted, 'to equal', moment2.format());
+    });
+
+    it('does not mutate the moment objects when checking for equality against a certain format', function () {
+        var moment1 = moment(1000);
+        var moment1Formartted = moment1.format();
+        expect(moment1, 'when formatted with', 'YYYYMMDD', 'to equal', '19700101');
+        expect(moment1Formartted, 'to equal', moment1.format());
+    });
+
+    it('does not mutate the moment objects when checking for equality against the start of a unit of time', function () {
+        var moment1 = moment(1000).startOf('isoWeek');
+        var moment1Formartted = moment1.format();
+        expect(moment1, 'to be the start of isoWeek');
+        expect(moment1Formartted, 'to equal', moment1.format());
+    });
+
+    it('does not mutate the moment objects when checking for equality against the end of a unit of time', function () {
+        var moment1 = moment(1000);
+        var moment1Formartted = moment1.format();
+        expect(moment1, 'not to be the end of day');
+        expect(moment1Formartted, 'to equal', moment1.format());
     });
 });
