@@ -48,6 +48,6 @@
   "devDependencies": {
     "jshint": "2.8.0",
     "mocha": "2.3.3",
-    "sinon": "1.17.0",
+    "sinon": "1.17.0"
   }
 }
