@@ -37,6 +37,10 @@
     "url": "https://github.com/joelmukuthu/unexpected-moment/issues"
   },
   "homepage": "https://github.com/joelmukuthu/unexpected-moment",
+  "dependencies": {
+    "moment": "2.10.6",
+    "unexpected": "9.13.0"
+  },
   "peerDependencies": {
     "moment": "2",
     "unexpected": "8 || 9"
@@ -45,6 +49,5 @@
     "jshint": "2.8.0",
     "mocha": "2.3.3",
     "sinon": "1.17.0",
-    "unexpected": "9.13.0"
   }
 }
