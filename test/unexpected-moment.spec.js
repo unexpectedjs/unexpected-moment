@@ -49,14 +49,42 @@ describe('unexpected-moment', function () {
         expect(moment(0), 'not to equal', moment(1));
     });
 
+    it('identifies strict equality in moments', function () {
+        expect(moment(0), 'to equal', moment(0));
+        expect(moment(0), 'not to equal', moment(0).toDate());
+    });
+
     it('identifies a moment that occurs before another chronologically', function () {
         expect(moment(0), 'to be before', moment(1));
+        expect(moment(0), 'to be before', moment(1).toISOString());
+        expect(moment(0), 'to be before', moment(1).toArray());
+        expect(moment(0), 'to be before', moment(1).toDate());
+        expect(moment(0), 'to be before', moment(1).valueOf());
+        expect(moment(0), 'to be before', moment(1).toObject());
+
+
         expect(moment(1), 'not to be before', moment(0));
+        expect(moment(1), 'not to be before', moment(0).toISOString());
+        expect(moment(1), 'not to be before', moment(0).toArray());
+        expect(moment(1), 'not to be before', moment(0).toDate());
+        expect(moment(1), 'not to be before', moment(0).valueOf());
+        expect(moment(1), 'not to be before', moment(0).toObject());
     });
 
     it('identifies a moment that occurs after another chronologically', function () {
         expect(moment(1), 'to be after', moment(0));
+        expect(moment(1), 'to be after', moment(0).toISOString());
+        expect(moment(1), 'to be after', moment(0).toArray());
+        expect(moment(1), 'to be after', moment(0).toDate());
+        expect(moment(1), 'to be after', moment(0).valueOf());
+        expect(moment(1), 'to be after', moment(0).toObject());
+
         expect(moment(0), 'not to be after', moment(1));
+        expect(moment(0), 'not to be after', moment(1).toISOString());
+        expect(moment(0), 'not to be after', moment(1).toArray());
+        expect(moment(0), 'not to be after', moment(1).toDate());
+        expect(moment(0), 'not to be after', moment(1).valueOf());
+        expect(moment(0), 'not to be after', moment(1).toObject());
     });
 
     it('allows formatting moments asserting against expected string outputs', function () {
@@ -198,12 +226,87 @@ describe('unexpected-moment', function () {
         expect(moment(123456).endOf('year').subtract(1, 'second'), 'not to be the end of year');
     });
 
+    it('identifies satisfaction and dissatisfaction in moments', function () {
+    // it('identifies satisfying and disatisfying moments/dates', function () {
+        var aMoment = moment('2015-01-01T00:00:00+00:00');
+        var aUtcMoment = moment.utc('2015-01-01T00:00:00+00:00');
+
+        expect(aMoment, 'to satisfy', aMoment.clone());
+        expect(aMoment, 'not to satisfy', aMoment.clone().add(1));
+
+        expect(moment(1000), 'to satisfy', moment(1000));
+        expect(moment(1000), 'not to satisfy', moment(2000));
+
+        expect(aMoment, 'to satisfy', aMoment.toDate());
+        expect(aMoment, 'not to equal', aMoment.toDate());
+
+        expect(aUtcMoment, 'to satisfy', new Date('Thu Jan 01 2015 01:00:00 GMT+0100 (CET)'));
+        expect(aUtcMoment, 'not to equal', new Date('Thu Jan 01 2015 01:00:00 GMT+0100 (CET)'));
+
+        expect(aMoment, 'to satisfy', aMoment.toArray());
+        expect(aMoment, 'not to equal', aMoment.toArray());
+        expect(aMoment, 'not to satisfy', [1, 2, 3, 4, 5, 6, 7, 8]);
+
+        expect(aUtcMoment, 'to satisfy', [2015, 0, 1, 0, 0, 0, 0]);
+        expect(aUtcMoment, 'not to equal', [2015, 0, 1, 0, 0, 0, 0]);
+
+
+        expect(aMoment, 'to satisfy', aMoment.toISOString());
+        expect(aMoment, 'to satisfy', aMoment.format());
+
+        expect(aMoment, 'to satisfy', aMoment.toJSON());
+        expect(aMoment, 'not to equal', aMoment.toJSON());
+
+        expect(aUtcMoment, 'to satisfy', '2015-01-01T00:00:00.000Z');
+        expect(aUtcMoment, 'to satisfy', '2015-01-01T00:00:00+00:00');
+        expect(aUtcMoment, 'not to equal', '2015-01-01T00:00:00.000Z');
+
+        expect(aMoment, 'to satisfy', aMoment.toObject());
+        expect(aMoment, 'not to equal', aMoment.toObject());
+
+        expect(aUtcMoment, 'to satisfy', {
+            years: 2015,
+            months: 0,
+            date: 1,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            milliseconds: 0
+        });
+
+        // partial object passes
+        expect(aUtcMoment, 'to satisfy', {
+            years: 2015,
+            date: 1,
+            seconds: 0
+        });
+
+        // but not an empty one
+        expect(aUtcMoment, 'not to satisfy', {});
+
+        // TODO: nor one with unkown keys
+        // expect(aUtcMoment, 'not to satisfy', {
+        //     years: 2015,
+        //     mints: 0
+        // });
+    });
+
     it('does not mutate the moment objects when checking for equality', function () {
         var moment1 = moment(1000);
         var moment2 = moment(123456);
         var moment1Formartted = moment1.format();
         var moment2Formartted = moment2.format();
         expect(moment1, 'not to equal', moment2);
+        expect(moment1Formartted, 'to equal', moment1.format());
+        expect(moment2Formartted, 'to equal', moment2.format());
+    });
+
+    it('does not mutate the moment objects when checking for satisfaction', function () {
+        var moment1 = moment(1000);
+        var moment2 = moment(123456);
+        var moment1Formartted = moment1.format();
+        var moment2Formartted = moment2.format();
+        expect(moment1, 'not to satisfy', moment2);
         expect(moment1Formartted, 'to equal', moment1.format());
         expect(moment2Formartted, 'to equal', moment2.format());
     });

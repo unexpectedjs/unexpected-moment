@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "jshint": "2.8.0",
-    "mocha": "2.3.2",
-    "sinon": "1.16.1",
-    "unexpected": "9.11.1"
+    "mocha": "2.3.3",
+    "sinon": "1.17.0",
+    "unexpected": "9.13.0"
   }
 }
