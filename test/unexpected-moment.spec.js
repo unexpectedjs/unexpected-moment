@@ -1,5 +1,5 @@
 var sinon = require('sinon'),
-    moment = require('moment'),
+    moment = require('moment-timezone'),
     unexpected = require('unexpected'),
     unexpectedMoment = require('../lib/unexpected-moment');
 
@@ -16,8 +16,13 @@ describe('unexpected-moment', function () {
     var oneWeek;
     var oneMonth;
     var oneYear;
+
     before(function () {
         clock = sinon.useFakeTimers();
+
+        moment.tz.add('Europe/Copenhagen|CET CEST|-10 -20|0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2azC0 Tz0 VuO0 60q0 WM0 1fA0 1cM0 1cM0 1cM0 S00 1HA0 Nc0 1C00 Dc0 1Nc0 Ao0 1h5A0 1a00 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00');
+        moment.tz.setDefault('Europe/Copenhagen');
+
         oneMillisecond = 1;
         oneSecond = moment.duration(1, 'second').valueOf();
         oneMinute = moment.duration(1, 'minute').valueOf();
@@ -228,7 +233,7 @@ describe('unexpected-moment', function () {
 
     it('identifies satisfaction and dissatisfaction in moments', function () {
     // it('identifies satisfying and disatisfying moments/dates', function () {
-        var aMoment = moment('2015-01-01T00:00:00+00:00');
+        var aMoment = moment('2015-01-01T00:00:00+01:00');
         var aUtcMoment = moment.utc('2015-01-01T00:00:00+00:00');
 
         expect(aMoment, 'to satisfy', aMoment.clone());
@@ -247,7 +252,7 @@ describe('unexpected-moment', function () {
         expect(aMoment, 'not to equal', aMoment.toArray());
         expect(aMoment, 'not to satisfy', [1, 2, 3, 4, 5, 6, 7, 8]);
 
-        expect(aUtcMoment, 'to satisfy', [2015, 0, 1, 0, 0, 0, 0]);
+        expect(aUtcMoment, 'not to satisfy', [2015, 0, 1, 0, 0, 0, 0]); // see: https://github.com/moment/moment/issues/2633
         expect(aUtcMoment, 'not to equal', [2015, 0, 1, 0, 0, 0, 0]);
 
 
@@ -264,25 +269,17 @@ describe('unexpected-moment', function () {
         expect(aMoment, 'to satisfy', aMoment.toObject());
         expect(aMoment, 'not to equal', aMoment.toObject());
 
-        expect(aUtcMoment, 'to satisfy', {
-            years: 2015,
-            months: 0,
-            date: 1,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
-            milliseconds: 0
-        });
+        expect(aUtcMoment, 'not to satisfy', aUtcMoment.toObject()); // see: https://github.com/moment/moment/issues/2633
 
         // partial object passes
-        expect(aUtcMoment, 'to satisfy', {
+        expect(aMoment, 'to satisfy', {
             years: 2015,
             date: 1,
             seconds: 0
         });
 
         // but not an empty one
-        expect(aUtcMoment, 'not to satisfy', {});
+        expect(aMoment, 'not to satisfy', {});
 
         // TODO: nor one with unkown keys
         // expect(aUtcMoment, 'not to satisfy', {
