@@ -51,7 +51,7 @@ describe('unexpected-moment', function () {
 
     it('identifies strict equality in moments', function () {
         expect(moment(0), 'to equal', moment(0));
-        expect(moment(0), 'not to equal', moment(0).toDate());
+        expect(moment(0), 'not to equal', new Date(0));
     });
 
     it('identifies a moment that occurs before another chronologically', function () {
