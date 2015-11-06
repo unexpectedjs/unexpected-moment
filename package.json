@@ -1,6 +1,6 @@
 {
   "name": "unexpected-moment",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Unexpected plugin for Moment.js",
   "main": "lib/unexpected-moment.js",
   "directories": {
