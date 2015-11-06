@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/unexpected-moment.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">lib/</a> unexpected-moment.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.85% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.59% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.85% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>27/41</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">885×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">77×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">77×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">77×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(function (root, factory) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof exports === 'object') {
+        module.exports = factory(require('moment'));
+    } else <span class="cstat-no" title="statement not covered" >if (typeof define === 'function' &amp;&amp; define.amd) {</span>
+<span class="cstat-no" title="statement not covered" >        define(['moment'], factory);</span>
+    } else {
+        // TODO: global moment object is deprecated and will be removed in v3
+<span class="cstat-no" title="statement not covered" >        root.moment = root.moment || {};</span>
+<span class="cstat-no" title="statement not covered" >        root.moment.unexpectedMoment = factory(root.moment);</span>
+    }
+}(this, function (moment) {
+    var outputFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
+&nbsp;
+    return {
+        name: 'unexpected-moment',
+&nbsp;
+        installInto: function (expect) {
+            expect.addType({
+                name: 'moment',
+                base: 'object',
+                identify: function (value) {
+                    return value &amp;&amp; moment.isMoment(value);
+                },
+                equal: <span class="fstat-no" title="function not covered" >function (a, b) {</span>
+<span class="cstat-no" title="statement not covered" >                    return a.isSame(b);</span>
+                },
+                inspect: <span class="fstat-no" title="function not covered" >function (value, depth, output) {</span>
+<span class="cstat-no" title="statement not covered" >                    var name = value.isUtc() ? 'moment.utc' : 'moment';</span>
+<span class="cstat-no" title="statement not covered" >                    output.jsFunctionName(name)</span>
+                        .text('(')
+                        .jsPrimitive(value.format(outputFormat))
+                        .text(')');
+                },
+                diff: <span class="fstat-no" title="function not covered" >function (actual, expected, output, diff) {</span>
+<span class="cstat-no" title="statement not covered" >                    return diff(actual.format(outputFormat), expected.format(outputFormat));</span>
+                }
+            });
+&nbsp;
+            expect.addAssertion('&lt;any&gt; [not] to be a moment', function (expect, subject) {
+                expect(moment.isMoment(subject), '[not] to be true');
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; [not] to be before &lt;any&gt;', function (expect, subject, value) {
+                expect(subject.isBefore(value), '[not] to be true');
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; [not] to be after &lt;any&gt;', function (expect, subject, value) {
+                expect(subject.isAfter(value), '[not] to be true');
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; when formatted with &lt;string&gt; &lt;assertion&gt;', function (expect, subject, format) {
+                return this.shift(subject.format(format));
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; [not] to equal &lt;moment&gt; &lt;string?&gt;', function (expect, subject, value, label) {
+                var that = this;
+                // TODO: validate granularity?
+                var granularity = (label || '').replace(/^in /, '').replace(/s$/, '');
+&nbsp;
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (subject.isSame(value, granularity) === this.flags.not) {
+<span class="cstat-no" title="statement not covered" >                    that.argsOutput = <span class="fstat-no" title="function not covered" >function (output) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        output.appendInspected(value);</span>
+<span class="cstat-no" title="statement not covered" >                        if (granularity) {</span>
+<span class="cstat-no" title="statement not covered" >                            output.sp().text(label);</span>
+                        }
+                    };
+<span class="cstat-no" title="statement not covered" >                    expect.fail({</span>
+                        diff: <span class="fstat-no" title="function not covered" >function (output, diff, inspect, equal) {</span>
+<span class="cstat-no" title="statement not covered" >                            return diff(subject, value);</span>
+                        }
+                    });
+                }
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; [not] to be the start of (second|minute|hour|day|week|isoWeek|month|quarter|year)', function (expect, subject) {
+                var unitOfTime = this.alternations[0];
+                expect(subject.isSame(subject.clone().startOf(unitOfTime)), '[not] to be true');
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; [not] to be the end of (second|minute|hour|day|week|isoWeek|month|quarter|year)', function (expect, subject) {
+                var unitOfTime = this.alternations[0];
+                expect(subject.isSame(subject.clone().endOf(unitOfTime)), '[not] to be true');
+            });
+&nbsp;
+            expect.addAssertion('&lt;moment&gt; to satisfy &lt;any&gt;', function (expect, subject, value) {
+                // TODO: better error message if this fails
+                expect(subject.isSame(value), 'to be true');
+            });
+        }
+    };
+}));
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Nov 06 2015 17:09:45 GMT+0100 (CET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+[
+  {
+    "label": "to be a moment (any)",
+    "url": "/assertions/any/to-be-a-moment/"
+  },
+  {
+    "label": "to be after (moment)",
+    "url": "/assertions/moment/to-be-after/"
+  },
+  {
+    "label": "to be before (moment)",
+    "url": "/assertions/moment/to-be-before/"
+  },
+  {
+    "label": "to be the end of (moment)",
+    "url": "/assertions/moment/to-be-the-end-of/"
+  },
+  {
+    "label": "to be the start of (moment)",
+    "url": "/assertions/moment/to-be-the-start-of/"
+  },
+  {
+    "label": "to equal (moment)",
+    "url": "/assertions/moment/to-equal/"
+  },
+  {
+    "label": "to satisfy (moment)",
+    "url": "/assertions/moment/to-satisfy/"
+  },
+  {
+    "label": "when formatted with (moment)",
+    "url": "/assertions/moment/when-formatted-with/"
+  }
+]
