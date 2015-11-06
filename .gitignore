@@ -1,1 +1,4 @@
 node_modules
+site-build
+coverage
+npm-debug.log
