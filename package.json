@@ -43,8 +43,7 @@
   },
   "homepage": "https://github.com/joelmukuthu/unexpected-moment",
   "dependencies": {
-    "moment": "2.10.6",
-    "unexpected": "9.13.0"
+    "moment": "2.10.6"
   },
   "peerDependencies": {
     "moment": "2",
