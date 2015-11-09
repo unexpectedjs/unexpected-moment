@@ -29,9 +29,9 @@ to equal moment(2015-11-03T00:00:00.000+01:00)
 ```
 
 [![NPM version](https://badge.fury.io/js/unexpected-moment.svg)](http://badge.fury.io/js/unexpected-moment)
-[![Build Status](https://travis-ci.org/joelmukuthu/unexpected-moment.svg?branch=master)](https://travis-ci.org/joelmukuthu/unexpected-moment)
-[![Coverage Status](https://coveralls.io/repos/joelmukuthu/unexpected-moment/badge.svg)](https://coveralls.io/r/joelmukuthu/unexpected-moment)
-[![Dependency Status](https://david-dm.org/joelmukuthu/unexpected-moment.svg)](https://david-dm.org/joelmukuthu/unexpected-moment)
+[![Build Status](https://travis-ci.org/unexpectedjs/unexpected-moment.svg?branch=master)](https://travis-ci.org/unexpectedjs/unexpected-moment)
+[![Coverage Status](https://coveralls.io/repos/unexpectedjs/unexpected-moment/badge.svg)](https://coveralls.io/r/unexpectedjs/unexpected-moment)
+[![Dependency Status](https://david-dm.org/unexpectedjs/unexpected-moment.svg)](https://david-dm.org/unexpectedjs/unexpected-moment)
 
 ## How to use
 

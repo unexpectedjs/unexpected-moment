@@ -5,7 +5,7 @@ var sinon = require('sinon'),
 
 describe('unexpected-moment', function () {
     var expect = unexpected.clone()
-        .installPlugin(unexpectedMoment);
+        .use(unexpectedMoment);
 
     var clock;
     var oneMillisecond;
