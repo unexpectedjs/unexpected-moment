@@ -1,5 +1,7 @@
 /*global unexpected:true, moment:true*/
 unexpected = require('unexpected');
 unexpected.output.preferredWidth = 80;
+unexpected.use(require('./lib/unexpected-moment'));
+
 moment = require('moment-timezone');
-unexpected.installPlugin(require('./lib/unexpected-moment'));
+moment.tz.setDefault('Europe/Copenhagen');
