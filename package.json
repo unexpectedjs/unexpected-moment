@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joelmukuthu/unexpected-moment.git"
+    "url": "git+https://github.com/unexpectedjs/unexpected-moment.git"
   },
   "keywords": [
     "unexpected",
@@ -43,9 +43,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/joelmukuthu/unexpected-moment/issues"
+    "url": "https://github.com/unexpectedjs/unexpected-moment/issues"
   },
-  "homepage": "https://github.com/joelmukuthu/unexpected-moment",
+  "homepage": "https://github.com/unexpectedjs/unexpected-moment",
   "dependencies": {
     "moment": "2.10.6"
   },
