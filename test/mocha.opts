@@ -1,3 +1,5 @@
--R spec
+--reporter spec
+--recursive
 --check-leaks
---require ./test/common
+--require ./bootstrap-unexpected-markdown.js
+--compilers md:unexpected-markdown

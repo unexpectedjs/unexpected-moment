@@ -8,12 +8,11 @@
   },
   "scripts": {
     "lint": "jshint .",
-    "test": "mocha && npm run lint",
+    "test": "mocha test/**/*.js documentation/**/*.md && npm run lint",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
     "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
-    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples",
-    "deploy-site": "deploy-site.sh"
+    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
   },
   "repository": {
     "type": "git",
@@ -60,7 +59,7 @@
     "mocha": "2.3.3",
     "moment-timezone": "0.4.1",
     "sinon": "1.17.0",
-    "unexpected": "10.0.2",
-    "unexpected-documentation-site-generator": "3.2.0"
+    "unexpected": "10.11.1",
+    "unexpected-documentation-site-generator": "^4.0.0"
   }
 }
