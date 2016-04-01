@@ -60,6 +60,7 @@
     "moment-timezone": "0.4.1",
     "sinon": "1.17.0",
     "unexpected": "10.11.1",
-    "unexpected-documentation-site-generator": "^4.0.0"
+    "unexpected-documentation-site-generator": "^4.0.0",
+    "unexpected-markdown": "^1.4.0"
   }
 }
