@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "lint": "jshint .",
+    "lint": "eslint .",
     "test": "mocha test/**/*.js documentation/**/*.md && npm run lint",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
     "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
@@ -54,8 +54,9 @@
   },
   "devDependencies": {
     "coveralls": "2.11.4",
+    "eslint": "2.7.0",
+    "eslint-config-onelint": "1.0.2",
     "istanbul": "0.4.0",
-    "jshint": "2.8.0",
     "mocha": "2.3.3",
     "moment-timezone": "0.4.1",
     "sinon": "1.17.0",
