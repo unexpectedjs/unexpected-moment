@@ -154,8 +154,8 @@ describe('unexpected-moment', function () {
         expect(moment(1), 'not to be between', moment(2), moment(2));
 
         // Exclusivity
-        expect(moment(0), 'not to be between exclusively', moment(0), moment(1));
-        expect(moment(1), 'to be between exclusively', moment(0), moment(2));
+        expect(moment(0), 'not to be exclusively between', moment(0), moment(1));
+        expect(moment(1), 'to be exclusively between', moment(0), moment(2));
     });
 
     it('allows formatting moments asserting against expected string outputs', function () {

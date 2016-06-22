@@ -7,7 +7,7 @@ expect(moment(0), 'to be between', moment(0), moment(10))
 To exclude the end-points from being valid values, use
 
 ```js
-expect(moment(), 'to be between exclusively', moment().startOf('day'), moment().endOf('day'))
+expect(moment(), 'to be exclusively between', moment().startOf('day'), moment().endOf('day'))
 ```
 
 Failing assertions gives the following:
