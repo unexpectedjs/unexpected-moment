@@ -90,6 +90,59 @@ describe('unexpected-moment', function () {
         expect(moment(0), 'not to be after', moment(1).toObject());
     });
 
+    it('identifies a moment that occurs at same time or before another chronologically', function () {
+        expect(moment(0), 'to be same or before', moment(1));
+        expect(moment(0), 'to be same or before', moment(1).toISOString());
+        expect(moment(0), 'to be same or before', moment(1).toArray());
+        expect(moment(0), 'to be same or before', moment(1).toDate());
+        expect(moment(0), 'to be same or before', moment(1).valueOf());
+        expect(moment(0), 'to be same or before', moment(1).toObject());
+
+        expect(moment(1), 'not to be same or before', moment(0));
+        expect(moment(1), 'not to be same or before', moment(0).toISOString());
+        expect(moment(1), 'not to be same or before', moment(0).toArray());
+        expect(moment(1), 'not to be same or before', moment(0).toDate());
+        expect(moment(1), 'not to be same or before', moment(0).valueOf());
+        expect(moment(1), 'not to be same or before', moment(0).toObject());
+
+        expect(moment(0), 'to be same or before', moment(0));
+        expect(moment(0), 'to be same or before', moment(0).toISOString());
+        expect(moment(0), 'to be same or before', moment(0).toArray());
+        expect(moment(0), 'to be same or before', moment(0).toDate());
+        expect(moment(0), 'to be same or before', moment(0).valueOf());
+        expect(moment(0), 'to be same or before', moment(0).toObject());
+
+        expect(moment(1), 'not to be same or before', moment(0));
+        expect(moment(1), 'not to be same or before', moment(0).toISOString());
+        expect(moment(1), 'not to be same or before', moment(0).toArray());
+        expect(moment(1), 'not to be same or before', moment(0).toDate());
+        expect(moment(1), 'not to be same or before', moment(0).valueOf());
+        expect(moment(1), 'not to be same or before', moment(0).toObject());
+    });
+
+    it('identifies a moment that occurs at same time or after chronologically', function () {
+        expect(moment(1), 'to be same or after', moment(0));
+        expect(moment(1), 'to be same or after', moment(0).toISOString());
+        expect(moment(1), 'to be same or after', moment(0).toArray());
+        expect(moment(1), 'to be same or after', moment(0).toDate());
+        expect(moment(1), 'to be same or after', moment(0).valueOf());
+        expect(moment(1), 'to be same or after', moment(0).toObject());
+
+        expect(moment(0), 'not to be same or after', moment(1));
+        expect(moment(0), 'not to be same or after', moment(1).toISOString());
+        expect(moment(0), 'not to be same or after', moment(1).toArray());
+        expect(moment(0), 'not to be same or after', moment(1).toDate());
+        expect(moment(0), 'not to be same or after', moment(1).valueOf());
+        expect(moment(0), 'not to be same or after', moment(1).toObject());
+
+        expect(moment(0), 'to be same or after', moment(0));
+        expect(moment(0), 'to be same or after', moment(0).toISOString());
+        expect(moment(0), 'to be same or after', moment(0).toArray());
+        expect(moment(0), 'to be same or after', moment(0).toDate());
+        expect(moment(0), 'to be same or after', moment(0).valueOf());
+        expect(moment(0), 'to be same or after', moment(0).toObject());
+    });
+
     it('allows formatting moments asserting against expected string outputs', function () {
         expect(moment(1), 'when formatted with', 'YYYY', 'to be', '1970');
         expect(moment(1), 'when formatted with', 'YYYY', 'to equal', '1970');
