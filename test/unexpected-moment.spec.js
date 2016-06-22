@@ -143,6 +143,17 @@ describe('unexpected-moment', function () {
         expect(moment(0), 'to be same or after', moment(0).toObject());
     });
 
+    it('identifies moments between other moments', function () {
+        expect(moment(0), 'to be between', moment(0), moment(0));
+
+        expect(moment(0), 'to be between', moment(0), moment(2));
+        expect(moment(1), 'to be between', moment(0), moment(2));
+        expect(moment(2), 'to be between', moment(0), moment(2));
+
+        expect(moment(1), 'not to be between', moment(0), moment(0));
+        expect(moment(1), 'not to be between', moment(2), moment(2));
+    });
+
     it('allows formatting moments asserting against expected string outputs', function () {
         expect(moment(1), 'when formatted with', 'YYYY', 'to be', '1970');
         expect(moment(1), 'when formatted with', 'YYYY', 'to equal', '1970');
