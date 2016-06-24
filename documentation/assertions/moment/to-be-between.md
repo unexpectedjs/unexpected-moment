@@ -1,13 +1,13 @@
-Passes if the moment instance is between two other given instances, both extremes included.
+Passes if the moment instance is between two other given instances:
 
 ```js
-expect(moment(0), 'to be between', moment(0), moment(10))
+expect(moment(), 'to be between', moment().startOf('day'), moment().endOf('day'))
 ```
 
-To exclude the end-points from being valid values, use
+To include the end-points as valid values, use
 
 ```js
-expect(moment(), 'to be exclusively between', moment().startOf('day'), moment().endOf('day'))
+expect(moment(0), 'to be inclusively between', moment(0), moment(10))
 ```
 
 Failing assertions gives the following:

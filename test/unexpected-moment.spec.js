@@ -144,18 +144,15 @@ describe('unexpected-moment', function () {
     });
 
     it('identifies moments between other moments', function () {
-        expect(moment(0), 'to be between', moment(0), moment(0));
-
-        expect(moment(0), 'to be between', moment(0), moment(2));
+        expect(moment(0), 'not to be between', moment(0), moment(2));
         expect(moment(1), 'to be between', moment(0), moment(2));
-        expect(moment(2), 'to be between', moment(0), moment(2));
+        expect(moment(2), 'not to be between', moment(0), moment(2));
 
-        expect(moment(1), 'not to be between', moment(0), moment(0));
-        expect(moment(1), 'not to be between', moment(2), moment(2));
-
-        // Exclusivity
-        expect(moment(0), 'not to be exclusively between', moment(0), moment(1));
-        expect(moment(1), 'to be exclusively between', moment(0), moment(2));
+        // Inclusivity
+        expect(moment(0), 'not to be inclusively between', moment(1), moment(2));
+        expect(moment(1), 'to be inclusively between', moment(1), moment(2));
+        expect(moment(2), 'to be inclusively between', moment(1), moment(2));
+        expect(moment(3), 'not to be inclusively between', moment(1), moment(2));
     });
 
     it('allows formatting moments asserting against expected string outputs', function () {
