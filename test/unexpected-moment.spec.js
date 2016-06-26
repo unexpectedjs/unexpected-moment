@@ -161,10 +161,10 @@ describe('unexpected-moment', function () {
         expect(moment(1), 'when formatted with', 'YYYYMM', 'not to be', '1970');
         expect(moment(1), 'when formatted with', 'YYYYMM', 'not to equal', '1970');
 
-        expect(moment.utc(), 'when formatted with', '', 'to be', '1970-01-01T00:00:00+00:00');
-        expect(moment.utc(), 'when formatted with', '', 'to equal', '1970-01-01T00:00:00+00:00');
-        expect(moment.utc(1000), 'when formatted with', '', 'not to be', '1970-01-01T00:00:00+00:00');
-        expect(moment.utc(1000), 'when formatted with', '', 'not to equal', '1970-01-01T00:00:00+00:00');
+        expect(moment.utc(), 'when formatted with', '', 'to be', '1970-01-01T00:00:00Z');
+        expect(moment.utc(), 'when formatted with', '', 'to equal', '1970-01-01T00:00:00Z');
+        expect(moment.utc(1000), 'when formatted with', '', 'not to be', '1970-01-01T00:00:00Z');
+        expect(moment.utc(1000), 'when formatted with', '', 'not to equal', '1970-01-01T00:00:00Z');
     });
 
     it('identifies (un)equality in various granularity levels', function () {
