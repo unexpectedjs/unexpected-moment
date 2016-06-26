@@ -50,17 +50,17 @@
   },
   "peerDependencies": {
     "moment": "^2.13.0",
-    "unexpected": "10"
+    "unexpected": "^10.14.2"
   },
   "devDependencies": {
-    "coveralls": "2.11.4",
-    "eslint": "2.7.0",
-    "eslint-config-onelint": "1.0.2",
-    "istanbul": "0.4.0",
-    "mocha": "2.3.3",
-    "moment-timezone": "0.4.1",
-    "sinon": "1.17.0",
-    "unexpected": "10.14.2",
+    "coveralls": "^2.11.4",
+    "eslint": "^2.7.0",
+    "eslint-config-onelint": "^1.0.2",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3",
+    "moment-timezone": "^0.4.1",
+    "sinon": "^1.17.0",
+    "unexpected": "^10.14.2",
     "unexpected-documentation-site-generator": "^4.0.0",
     "unexpected-markdown": "^1.4.0"
   }
