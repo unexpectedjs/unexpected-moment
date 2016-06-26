@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/unexpectedjs/unexpected-moment",
   "dependencies": {
-    "moment": "2.10.6"
+    "moment": "2.13.0"
   },
   "peerDependencies": {
     "moment": "2",
