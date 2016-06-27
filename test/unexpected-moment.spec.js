@@ -341,10 +341,10 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy new Date(\'Sat, 02 Jan 2016 00:00:00 GMT\')\n' +
+                'to satisfy new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')\n' +
                 '\n' +
-                '-new Date(\'Fri, 01 Jan 2016 00:00:00 GMT\')\n' +
-                '+new Date(\'Sat, 02 Jan 2016 00:00:00 GMT\')'
+                '-new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
+                '+new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')'
             );
         });
     });
@@ -378,7 +378,7 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-03T00:00:00.000+01:00\')\n' +
-                'to be before new Date(\'Fri, 01 Jan 2016 23:00:00 GMT\')'
+                'to be before new Date(\'Sat Jan 02 2016 00:00:00 GMT+0100 (CET)\')'
             );
         });
     });
@@ -492,7 +492,7 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to be same or after new Date(\'Fri, 01 Jan 2016 23:00:00 GMT\')'
+                'to be same or after new Date(\'Sat Jan 02 2016 00:00:00 GMT+0100 (CET)\')'
             );
         });
     });
@@ -572,8 +572,8 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
-                'to be inclusively between new Date(\'Thu, 31 Dec 2015 23:00:00 GMT\') ' +
-                'and new Date(\'Fri, 01 Jan 2016 11:00:00 GMT\')'
+                'to be inclusively between new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\') ' +
+                'and new Date(\'Fri Jan 01 2016 12:00:00 GMT+0100 (CET)\')'
             );
         });
     });
