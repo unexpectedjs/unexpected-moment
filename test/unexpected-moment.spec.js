@@ -139,12 +139,24 @@ describe('unexpected-moment', function () {
             expect(moment('2016-01-01'), 'to satisfy', '2016-01-01T00:00:00+01:00');
         });
 
+        it('passes if passed a number as the expected value', function () {
+            expect(moment(123456), 'to satisfy', 123456);
+        });
+
+        it('passes if passed a Date as the expected value', function () {
+            expect(moment('2016-01-01 00:00:01'), 'to satisfy', new Date('2016-01-01 00:00:01'));
+        });
+
         it('passes if passed an array as the expected value', function () {
             expect(moment('2016-01-01'), 'to satisfy', [2016, 0, 1, 0, 0, 0, 0]);
         });
 
-        it('passes if passed an object as the expected value', function () {
+        it('passes if passed an object with a \'day\' unit as the expected value', function () {
             expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
+        });
+
+        it('passes if passed an object with a \'date\' unit as the expected value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
         });
 
         it('passes with a partial object', function () {
@@ -157,28 +169,31 @@ describe('unexpected-moment', function () {
             }, 'to error');
         });
 
+        it('throws if passed an empty array as the value', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'to satisfy', []);
+            }, 'to error');
+        });
+
         it('throws if passed an objet with unknown keys', function () {
             expect(function () {
-                expect(moment('2016-01-01'), 'not to satisfy', {
+                expect(moment('2016-01-01'), 'to satisfy', {
                     years: 2016,
                     mints: 0
                 });
             }, 'to error');
         });
 
-        it('passes if passed a number as the expected value', function () {
-            expect(moment(123456), 'to satisfy', 123456);
-        });
-
-
-        it('passes if passed a Date as the expected value', function () {
-            expect(moment('2016-01-01 00:00:01'), 'to satisfy', new Date('2016-01-01 00:00:01'));
+        it('throws if passed an empty string as the value', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'to satisfy', '');
+            }, 'to error');
         });
 
         // see: https://github.com/moment/moment/issues/2633
         it('throws for utc moments if the expected value is not a moment instance even though it represents the same moment', function () {
             expect(function () {
-                expect(moment.utc('2015-01-01T00:00:00+00:00'), 'not to satisfy', [2015, 0, 1, 0, 0, 0, 0]);
+                expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', [2015, 0, 1, 0, 0, 0, 0]);
             }, 'to error');
         });
 
@@ -202,7 +217,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', '2016-01-02');
                 },
                 'to error with',
-                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-2016-01-01\n' +
@@ -216,11 +231,58 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', [2016, 0, 2]);
                 },
                 'to error with',
-                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy \'2016-01-02\'\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy [ 2016, 0, 2 ]\n' +
                 '\n' +
-                '-[ 2016, 0, 1 ]\n' +
-                '+[ 2016, 0, 2 ]'
+                '[\n' +
+                '  2016,\n' +
+                '  0,\n' +
+                '  1 // should equal 2\n' +
+                ']'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an empty array value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', []);
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy []'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an empty object value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', {});
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy {}'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an empty string value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', '');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy \'\''
+            );
+        });
+
+        it('throws the correct error if the assertion fails for due to a bad string value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', 'not a date');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy \'not a date\''
             );
         });
 
@@ -231,35 +293,41 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy \'2016-01-02\'\n' +
+                'to satisfy { year: 2016, month: 0, date: 2, minute: 10, millisecond: 3 }\n' +
                 '\n' +
-                '-{ year: 2016, month: 0, day: 1, minute: 0, second: 0, millisecond: 0 }\n' +
-                '+{ year: 2016, month: 0, date: 2, minute: 10, millisecond: 3 }'
+                '{\n' +
+                '  years: 2016,\n' +
+                '  months: 0,\n' +
+                '  date: 1, // should equal 2\n' +
+                '  hours: 0,\n' +
+                '  minutes: 0, // should equal 10\n' +
+                '  seconds: 0,\n' +
+                '  milliseconds: 0 // should equal 3\n' +
+                '}'
             );
         });
 
-        it('throws the correct error if the assertion fails for a unix timestamp (seconds)', function () {
+        it('throws the correct error if the assertion fails due to an object having a bad unit', function () {
             expect(
                 function () {
-                    expect(moment('2016-01-01'), 'to satisfy', 1451689200);
+                    expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 1, minutez: 0, millisecond: 0 });
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy \'2016-01-02\'\n' +
-                '\n' +
-                '-1451602800\n' +
-                '+1451689200'
+                'to satisfy { year: 2016, month: 0, date: 1, minutez: 0, millisecond: 0 }\n' +
+                '  \n' +
+                '  Unit \'minutez\' is not a valid moment unit'
             );
         });
 
-        it('throws the correct error if the assertion fails for a unix timestamp (milliseconds)', function () {
+        it('throws the correct error if the assertion fails for a number (milliseconds)', function () {
             expect(
                 function () {
                     expect(moment('2016-01-01'), 'to satisfy', 1451689200000);
                 },
                 'to error with',
-                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy \'2016-01-02\'\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy 1451689200000\n' +
                 '\n' +
                 '-1451602800000\n' +
                 '+1451689200000'
@@ -273,10 +341,10 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy \'2016-01-02\'\n' +
+                'to satisfy new Date(\'Sat, 02 Jan 2016 00:00:00 GMT\')\n' +
                 '\n' +
-                '-new Date(\'2016-01-01\')\n' +
-                '+new Date(\'2016-01-02\')'
+                '-new Date(\'Fri, 01 Jan 2016 00:00:00 GMT\')\n' +
+                '+new Date(\'Sat, 02 Jan 2016 00:00:00 GMT\')'
             );
         });
     });
@@ -343,7 +411,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to be after', [2016, 0, 2, 0, 0, 0]);
                 },
                 'to error with',
-                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to be after [ 2016, 0, 2, 0, 0, 0 ]'
             );
         });
