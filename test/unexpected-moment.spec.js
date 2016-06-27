@@ -522,6 +522,13 @@ describe('unexpected-moment', function () {
         it('formats a moment with the default format if called with an empty string format', function () {
             expect(moment.utc(0), 'when formatted with', '', 'to equal', '1970-01-01T00:00:00Z');
         });
+
+        it('returns the formatted moment as the fulfilment value if an assertion is not provide', function () {
+            expect(moment(0), 'when formatted with', '')
+            .then(function (formatted) {
+                expect(formatted, 'to equal', '1970-01-01T00:00:00+01:00');
+            });
+        });
     });
 
     describe('to be the start of', function () {
