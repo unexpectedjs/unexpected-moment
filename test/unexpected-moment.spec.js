@@ -31,7 +31,7 @@ describe('unexpected-moment', function () {
         it('throws the correct error if the subject is a moment instance', function () {
             expect(function () {
                 expect(moment('2016-01-01'), 'not to be a moment');
-            }, 'to error with', 'expected moment(2016-01-01T00:00:00.000+01:00) not to be a moment');
+            }, 'to error with', 'expected moment(\'2016-01-01T00:00:00.000+01:00\') not to be a moment');
         });
     });
 
@@ -59,11 +59,11 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to equal', moment('2016-01-02'));
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
-                'to equal moment(2016-01-02T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to equal moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
                 '\n' +
-                '-moment(2016-01-01T00:00:00.000+01:00)\n' +
-                '+moment(2016-01-02T00:00:00.000+01:00)'
+                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                '+moment(\'2016-01-02T00:00:00.000+01:00\')'
             );
         });
 
@@ -85,11 +85,11 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to equal', moment('2016-01-02'), 'in milliseconds');
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
-                'to equal moment(2016-01-02T00:00:00.000+01:00) in milliseconds\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to equal moment(\'2016-01-02T00:00:00.000+01:00\') in milliseconds\n' +
                 '\n' +
-                '-moment(2016-01-01T00:00:00.000+01:00)\n' +
-                '+moment(2016-01-02T00:00:00.000+01:00)'
+                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                '+moment(\'2016-01-02T00:00:00.000+01:00\')'
             );
         });
     });
@@ -105,8 +105,8 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'not to equal', moment('2016-01-01'));
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
-                'not to equal moment(2016-01-01T00:00:00.000+01:00)'
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'not to equal moment(\'2016-01-01T00:00:00.000+01:00\')'
             );
         });
     });
@@ -168,13 +168,27 @@ describe('unexpected-moment', function () {
             }, 'to error');
         });
 
+        it('throws the correct error if the assertion fails for a moment value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', moment('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                '\n' +
+                '-moment(\'2016-01-01T00:00:00.000+01.00\')\n' +
+                '+moment(\'2016-01-02T00:00:00.000+01.00\')'
+            );
+        });
+
         it('throws the correct error if the assertion fails for a string value', function () {
             expect(
                 function () {
                     expect(moment('2016-01-01'), 'to satisfy', '2016-01-02');
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-2016-01-01\n' +
@@ -188,7 +202,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', [2016, 0, 2]);
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-[ 2016, 0, 1 ]\n' +
@@ -202,7 +216,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 2, minute: 10, millisecond: 3 });
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-{ year: 2016, month: 0, day: 1, minute: 0, second: 0, millisecond: 0 }\n' +
@@ -216,7 +230,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', 1451689200);
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-1451602800\n' +
@@ -230,7 +244,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', 1451689200000);
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-1451602800000\n' +
@@ -244,7 +258,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to satisfy', new Date('2016-01-02'));
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
                 '-new Date(\'2016-01-01\')\n' +
@@ -264,8 +278,8 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'not to satisfy', moment('2016-01-01'));
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
-                'not to satisfy moment(2016-01-01T00:00:00.000+01:00)'
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'not to satisfy moment(\'2016-01-01T00:00:00.000+01:00\')'
             );
         });
     });
@@ -281,7 +295,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-03'), 'to be before', new Date('2016-01-02 00:00:00'));
                 },
                 'to error with',
-                'expected moment(2016-01-03T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-03T00:00:00.000+01:00\')\n' +
                 'to be before new Date(\'Fri, 01 Jan 2016 23:00:00 GMT\')'
             );
         });
@@ -298,7 +312,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'not to be before', '2016-01-02 00:00:00');
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'not to be before \'2016-01-02 00:00:00\''
             );
         });
@@ -315,7 +329,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to be after', [2016, 0, 2, 0, 0, 0]);
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00) ' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
                 'to be after [ 2016, 0, 2, 0, 0, 0 ]'
             );
         });
@@ -332,7 +346,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'not to be after', { year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00) ' +
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
                 'not to be after\n' +
                 '{\n' +
                 '  year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0,\n' +
@@ -357,7 +371,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to be same or before', 1451602800); // 1451602800 -> new Date('2016-01-01 00:00:00')
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00) ' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
                 'to be same or before 1451602800'
             );
         });
@@ -374,7 +388,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'not to be same or before', 1451689200000); // 1451689200000 -> new Date('2016-01-02 00:00:00')
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'not to be same or before 1451689200000'
             );
         });
@@ -395,7 +409,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to be same or after', new Date('2016-01-02 00:00:00'));
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to be same or after new Date(\'Fri, 01 Jan 2016 23:00:00 GMT\')'
             );
         });
@@ -412,8 +426,8 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'not to be same or after', moment('2016-01-01 00:00:00'));
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00)\n' +
-                'not to be same or after moment(2016-01-01T00:00:00.000+01:00)'
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'not to be same or after moment(\'2016-01-01T00:00:00.000+01:00\')'
             );
         });
     });
@@ -429,8 +443,8 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to be between', moment('2016-01-02'), moment('2016-01-03'));
                 },
                 'to error with',
-                'expected moment(2016-01-01T00:00:00.000+01:00)\n' +
-                'to be between moment(2016-01-02T00:00:00.000+01:00) and moment(2016-01-03T00:00:00.000+01:00)'
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be between moment(\'2016-01-02T00:00:00.000+01:00\') and moment(\'2016-01-03T00:00:00.000+01:00\')'
             );
         });
     });
@@ -446,8 +460,8 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'not to be between', moment('2016-01-01'), moment('2016-01-03'));
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00)\n' +
-                'not to be between moment(2016-01-01T00:00:00.000+01:00) and moment(2016-01-03T00:00:00.000+01:00)'
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'not to be between moment(\'2016-01-01T00:00:00.000+01:00\') and moment(\'2016-01-03T00:00:00.000+01:00\')'
             );
         });
     });
@@ -475,7 +489,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'to be inclusively between', new Date('2016-01-01 00:00:00'), new Date('2016-01-01 12:00:00'));
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00)\n' +
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
                 'to be inclusively between new Date(\'Thu, 31 Dec 2015 23:00:00 GMT\') ' +
                 'and new Date(\'Fri, 01 Jan 2016 11:00:00 GMT\')'
             );
@@ -493,9 +507,9 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'not to be inclusively between', moment('2016-01-02'), moment('2016-01-02'));
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00)\n' +
-                'not to be inclusively between moment(2016-01-02T00:00:00.000+01:00) ' +
-                'and moment(2016-01-02T00:00:00.000+01:00)'
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'not to be inclusively between moment(\'2016-01-02T00:00:00.000+01:00\') ' +
+                'and moment(\'2016-01-02T00:00:00.000+01:00\')'
             );
         });
     });
@@ -553,11 +567,11 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'to be the start of year');
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00) ' +
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
                 'to be the start of year\n' +
                 '\n' +
-                '-moment(2016-01-02T00:00:00.000+01:00)\n' +
-                '+moment(2016-01-01T00:00:00.000+01:00)'
+                '-moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                '+moment(\'2016-01-01T00:00:00.000+01:00\')'
             );
         });
 
@@ -579,7 +593,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'not to be the start of day');
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00) ' +
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
                 'not to be the start of day'
             );
         });
@@ -628,11 +642,11 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02'), 'to be the end of year');
                 },
                 'to error with',
-                'expected moment(2016-01-02T00:00:00.000+01:00) ' +
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
                 'to be the end of year\n' +
                 '\n' +
-                '-moment(2016-01-02T00:00:00.000+01:00)\n' +
-                '+moment(2016-12-31T23:59:59.999+01:00)'
+                '-moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                '+moment(\'2016-12-31T23:59:59.999+01:00\')'
             );
         });
 
@@ -654,7 +668,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-02T23:59:59.999+01:00'), 'not to be the end of day');
                 },
                 'to error with',
-                'expected moment(2016-01-02T23:59:59.999+01:00) ' +
+                'expected moment(\'2016-01-02T23:59:59.999+01:00\') ' +
                 'not to be the end of day'
             );
         });
