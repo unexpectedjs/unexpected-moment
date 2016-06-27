@@ -159,8 +159,12 @@ describe('unexpected-moment', function () {
             expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
         });
 
-        it('passes with a partial object', function () {
+        it('passes with a partial object as the value', function () {
             expect(moment('2016-01-01'), 'to satisfy', { year: 2016, date: 1, seconds: 0 });
+        });
+
+        it('passes with a partial array as the value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', [ 2016 ]);
         });
 
         it('throws if passed an empty object as the value', function () {
