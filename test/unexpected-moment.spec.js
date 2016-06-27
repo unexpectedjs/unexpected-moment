@@ -67,6 +67,20 @@ describe('unexpected-moment', function () {
             );
         });
 
+        it('throws the correct error if the assertion fails due to the value being in UTC', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to equal', moment.utc('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to equal moment.utc(\'2016-01-02T00:00:00.000+00:00\')\n' +
+                '\n' +
+                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                '+moment.utc(\'2016-01-02T00:00:00.000+00:00\')'
+            );
+        });
+
         it('throws the correct error if the value is not a moment object', function () {
             expect(
                 function () {
@@ -177,8 +191,8 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
                 '\n' +
-                '-moment(\'2016-01-01T00:00:00.000+01.00\')\n' +
-                '+moment(\'2016-01-02T00:00:00.000+01.00\')'
+                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                '+moment(\'2016-01-02T00:00:00.000+01:00\')'
             );
         });
 
