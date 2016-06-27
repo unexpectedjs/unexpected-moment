@@ -17,6 +17,6 @@ expect(moment('2015-01-01'), 'to be between', moment('2015-02-01'), moment('2015
 ```
 
 ```output
-expected moment(2015-01-01T00:00:00.000+01:00)
-to be between moment(2015-02-01T00:00:00.000+01:00) and moment(2015-03-01T00:00:00.000+01:00)
+expected moment('2015-01-01T00:00:00.000+01:00')
+to be between moment('2015-02-01T00:00:00.000+01:00') and moment('2015-03-01T00:00:00.000+01:00')
 ```

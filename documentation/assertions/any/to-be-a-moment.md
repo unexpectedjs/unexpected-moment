@@ -12,5 +12,5 @@ expect(new Date('2015-01-01'), 'to be a moment');
 ```
 
 ```output
-expected new Date('Thu, 01 Jan 2015 00:00:00 GMT') to be a moment
+expected new Date('Thu Jan 01 2015 01:00:00 GMT+0100 (CET)') to be a moment
 ```

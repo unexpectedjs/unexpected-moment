@@ -11,8 +11,7 @@ expect(moment('2015-11-02'), 'when formatted to be', '2015');
 ```
 
 ```output
-expected moment(2015-11-02T00:00:00.000+01:00)
-when formatted with 'YYYYMMDD' to be '2015'
+expected moment('2015-11-02T00:00:00.000+01:00') when formatted to be '2015'
 
 -2015-11-02T00:00:00+01:00
 +2015

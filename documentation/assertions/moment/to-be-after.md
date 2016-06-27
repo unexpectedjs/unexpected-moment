@@ -13,6 +13,6 @@ expect(moment('2015-02-03'), 'to be after', moment('2015-04-03'));
 ```
 
 ```output
-expected moment(2015-02-03T00:00:00.000+01:00)
-to be after moment(2015-04-03T00:00:00.000+02:00)
+expected moment('2015-02-03T00:00:00.000+01:00')
+to be after moment('2015-04-03T00:00:00.000+02:00')
 ```
