@@ -523,11 +523,15 @@ describe('unexpected-moment', function () {
             expect(moment.utc(0), 'when formatted with', '', 'to equal', '1970-01-01T00:00:00Z');
         });
 
-        it('returns the formatted moment as the fulfilment value if an assertion is not provide', function () {
-            expect(moment(0), 'when formatted with', '')
+        it('returns the formatted moment as the fulfilment value if an assertion is not provided', function () {
+            expect(moment(0), 'when formatted with', 'YYYYMMDD')
             .then(function (formatted) {
-                expect(formatted, 'to equal', '1970-01-01T00:00:00+01:00');
+                expect(formatted, 'to equal', '19700101');
             });
+        });
+
+        it('also works without the \'when\'', function () {
+            expect(moment(0), 'formatted with', 'YYYYMMDD', 'to equal', '19700101');
         });
     });
 
