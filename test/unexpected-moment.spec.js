@@ -87,9 +87,7 @@ describe('unexpected-moment', function () {
                     expect(moment('2016-01-01'), 'to equal', '2016-01-01');
                 },
                 'to error with',
-                'Unknown assertion <moment> to equal <string>\n' +
-                '\n' +
-                'Did you mean <moment> to satisfy <string>?'
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') to equal \'2016-01-01\''
             );
         });
 
