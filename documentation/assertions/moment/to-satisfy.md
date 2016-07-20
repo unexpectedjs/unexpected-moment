@@ -24,10 +24,6 @@ to satisfy { year: 2015, month: 11, day: 1 }
 {
   years: 2015,
   months: 10, // should equal 11
-  date: 1,
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0
+  date: 1
 }
 ```
