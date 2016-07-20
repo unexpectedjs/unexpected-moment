@@ -360,8 +360,8 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')\n' +
                 '\n' +
-                '-new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
-                '+new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')'
+                'new Date(\'-Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
+                'new Date(\'+Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')'
             );
         });
     });
@@ -799,5 +799,16 @@ describe('unexpected-moment', function () {
                 'not to be the end of day'
             );
         });
+    });
+
+    it('does not interfere with unexpected\'s date type', function () {
+        expect(
+            function () {
+                expect(new Date('2016-01-01'), 'to equal', new Date('2016-01-02'));
+            },
+            'to error with',
+            'expected new Date(\'Fri, 01 Jan 2016 00:00:00 GMT\')\n' +
+            'to equal new Date(\'Sat, 02 Jan 2016 00:00:00 GMT\')'
+        );
     });
 });
