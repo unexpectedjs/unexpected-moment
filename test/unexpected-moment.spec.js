@@ -316,9 +316,7 @@ describe('unexpected-moment', function () {
                 '  years: 2016,\n' +
                 '  months: 0,\n' +
                 '  date: 1, // should equal 2\n' +
-                '  hours: 0,\n' +
                 '  minutes: 0, // should equal 10\n' +
-                '  seconds: 0,\n' +
                 '  milliseconds: 0 // should equal 3\n' +
                 '}'
             );
