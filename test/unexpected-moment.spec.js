@@ -193,25 +193,13 @@ describe('unexpected-moment', function () {
         });
 
         // see: https://github.com/moment/moment/issues/2633
-        it('passes for utc moments if passed a value that is not a moment instance or has no timezone information', function () {
-            // The argument here is that as a moment object, the timezone is relevant.
-            // But as an array|object|number there is no timezone information;
-            // therefore, the two represent a similar moment in time.
-            expect(function () {
-                expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', moment([2015, 0, 1, 0, 0, 0, 0]));
-            }, 'to error');
-            // but...
+        it('throws for utc moments if passed a value that has no timezone information', function () {
             expect(function () {
                 expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', [2015, 0, 1, 0, 0, 0, 0]);
-            }, 'not to error');
-            // but for a string with with timezone information...
-            expect(function () {
-                expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', '2015-01-01T00:00:00+01:00');
             }, 'to error');
-            // and a string with no timezone information...
             expect(function () {
                 expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', '2015-01-01T00:00:00');
-            }, 'not to error');
+            }, 'to error');
         });
 
         it('throws the correct error if the assertion fails for a moment value', function () {
