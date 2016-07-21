@@ -177,7 +177,7 @@ describe('unexpected-moment', function () {
             }, 'to error');
         });
 
-        it('throws if passed an objet with unknown keys', function () {
+        it('throws if passed an object with unknown keys', function () {
             expect(function () {
                 expect(moment('2016-01-01'), 'to satisfy', {
                     years: 2016,
