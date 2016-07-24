@@ -216,6 +216,20 @@ describe('unexpected-moment', function () {
             );
         });
 
+        it('throws the correct error if the assertion fails for a utc moment value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'to satisfy', moment.utc('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'to satisfy moment.utc(\'2016-01-02T00:00:00.000+00:00\')\n' +
+                '\n' +
+                '-moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                '+moment.utc(\'2016-01-02T00:00:00.000+00:00\')'
+            );
+        });
+
         it('throws the correct error if the assertion fails for a string value', function () {
             expect(
                 function () {
@@ -348,6 +362,80 @@ describe('unexpected-moment', function () {
                 '\n' +
                 'new Date(\'-Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
                 'new Date(\'+Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for an array value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', [2016, 0, 1, 0, 0, 0, 0]);
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy [ 2016, 0, 1, 0, 0, 0, 0 ]'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for an object value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', { year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\') to satisfy\n' +
+                '{\n' +
+                '  year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0,\n' +
+                '  millisecond: 0\n' +
+                '}'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for a Date value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', new Date('Fri Jan 01 2016 00:00:00 GMT+0100 (CET)'));
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for a string value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', '2016-01-01T00:00:00+01:00');
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy \'2016-01-01T00:00:00+01:00\''
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for a number value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', 1451602800000);
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy 1451602800000'
+            );
+        });
+
+        // TODO
+        it.skip('throws the correct error for utc moments when passed a value that has no timezone information', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', [2016, 0, 1, 0, 0, 0, 0]);
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                '\n' +
+                'moment.utc( // should be moment(\n' +
+                '  [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                ')'
             );
         });
     });
