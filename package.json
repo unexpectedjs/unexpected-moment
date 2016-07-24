@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha test/**/*.js documentation/**/*.md && npm run lint",
+    "test": "TZ='Europe/Copenhagen' mocha test/**/*.js documentation/**/*.md && npm run lint",
     "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
     "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
     "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
