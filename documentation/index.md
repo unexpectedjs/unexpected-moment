@@ -24,8 +24,11 @@ expect(date, 'to equal', moment('2015-11-03'));
 expected moment('2015-11-06T00:00:00.000+01:00')
 to equal moment('2015-11-03T00:00:00.000+01:00')
 
--moment('2015-11-06T00:00:00.000+01:00')
-+moment('2015-11-03T00:00:00.000+01:00')
+moment(
+  '2015-11-06T00:00:00.000+01:00' // should be '2015-11-03T00:00:00.000+01:00'
+                                  // -2015-11-06T00:00:00.000+01:00
+                                  // +2015-11-03T00:00:00.000+01:00
+)
 ```
 
 [![NPM version](https://badge.fury.io/js/unexpected-moment.svg)](http://badge.fury.io/js/unexpected-moment)

@@ -21,9 +21,11 @@ expect(moment('2015-11-01'), 'to satisfy', { year: 2015, month: 11, day: 1 });
 expected moment('2015-11-01T00:00:00.000+01:00')
 to satisfy { year: 2015, month: 11, day: 1 }
 
-{
-  years: 2015,
-  months: 10, // should equal 11
-  date: 1
-}
+moment(
+  {
+    years: 2015,
+    months: 10, // should equal 11
+    date: 1
+  }
+)
 ```
