@@ -62,22 +62,45 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to equal moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
                 '\n' +
-                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                '+moment(\'2016-01-02T00:00:00.000+01:00\')'
+                'moment(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+01:00\n' +
+                ')'
             );
         });
 
-        it('throws the correct error if the assertion fails due to the value being in UTC', function () {
+        it('throws the correct error if the assertion fails due to the value being in UTC while the subject is in local time', function () {
             expect(
                 function () {
-                    expect(moment('2016-01-01'), 'to equal', moment.utc('2016-01-02'));
+                    expect(moment('2016-01-01'), 'to equal', moment.utc('2016-01-01'));
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to equal moment.utc(\'2016-01-02T00:00:00.000+00:00\')\n' +
+                'to equal moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
                 '\n' +
-                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                '+moment.utc(\'2016-01-02T00:00:00.000+00:00\')'
+                'moment( // should be moment.utc(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-01T00:00:00.000+00:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-01T00:00:00.000+00:00\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails due to the value being in local time while the subject is in utc', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01'), 'to equal', moment('2016-01-01'));
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to equal moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                '\n' +
+                'moment.utc( // should be moment(\n' +
+                '  \'2016-01-01T00:00:00.000+00:00\' // should be \'2016-01-01T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+00:00\n' +
+                '                                  // +2016-01-01T00:00:00.000+01:00\n' +
+                ')'
             );
         });
 
@@ -100,8 +123,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to equal moment(\'2016-01-02T00:00:00.000+01:00\') in milliseconds\n' +
                 '\n' +
-                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                '+moment(\'2016-01-02T00:00:00.000+01:00\')'
+                'moment(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+01:00\n' +
+                ')'
             );
         });
     });
@@ -211,8 +237,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
                 '\n' +
-                '-moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                '+moment(\'2016-01-02T00:00:00.000+01:00\')'
+                'moment(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+01:00\n' +
+                ')'
             );
         });
 
@@ -225,8 +254,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
                 'to satisfy moment.utc(\'2016-01-02T00:00:00.000+00:00\')\n' +
                 '\n' +
-                '-moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
-                '+moment.utc(\'2016-01-02T00:00:00.000+00:00\')'
+                'moment( // should be moment.utc(\n' +
+                '  \'2016-01-02T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+00:00\'\n' +
+                '                                  // -2016-01-02T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+00:00\n' +
+                ')'
             );
         });
 
@@ -239,8 +271,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
                 'to satisfy \'2016-01-02\'\n' +
                 '\n' +
-                '-2016-01-01\n' +
-                '+2016-01-02'
+                'moment(\n' +
+                '  \'2016-01-01\' // should be \'2016-01-02\'\n' +
+                '               // -2016-01-01\n' +
+                '               // +2016-01-02\n' +
+                ')'
             );
         });
 
@@ -253,11 +288,13 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
                 'to satisfy [ 2016, 0, 2 ]\n' +
                 '\n' +
-                '[\n' +
-                '  2016,\n' +
-                '  0,\n' +
-                '  1 // should equal 2\n' +
-                ']'
+                'moment(\n' +
+                '  [\n' +
+                '    2016,\n' +
+                '    0,\n' +
+                '    1 // should equal 2\n' +
+                '  ]\n' +
+                ')'
             );
         });
 
@@ -314,13 +351,15 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy { year: 2016, month: 0, date: 2, minute: 10, millisecond: 3 }\n' +
                 '\n' +
-                '{\n' +
-                '  years: 2016,\n' +
-                '  months: 0,\n' +
-                '  date: 1, // should equal 2\n' +
-                '  minutes: 0, // should equal 10\n' +
-                '  milliseconds: 0 // should equal 3\n' +
-                '}'
+                'moment(\n' +
+                '  {\n' +
+                '    years: 2016,\n' +
+                '    months: 0,\n' +
+                '    date: 1, // should equal 2\n' +
+                '    minutes: 0, // should equal 10\n' +
+                '    milliseconds: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
             );
         });
 
@@ -346,8 +385,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
                 'to satisfy 1451689200000\n' +
                 '\n' +
-                '-1451602800000\n' +
-                '+1451689200000'
+                'moment(\n' +
+                '  1451602800000 // should be 1451689200000\n' +
+                '                // -1451602800000\n' +
+                '                // +1451689200000\n' +
+                ')'
             );
         });
 
@@ -360,8 +402,13 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')\n' +
                 '\n' +
-                'new Date(\'-Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
-                'new Date(\'+Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')'
+                'moment(\n' +
+                '  new Date(\n' +
+                '    \'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\' // should be \'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\'\n' +
+                '                                              // -Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\n' +
+                '                                              // +Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\n' +
+                '  )\n' +
+                ')'
             );
         });
 
@@ -372,7 +419,11 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
-                'to satisfy [ 2016, 0, 1, 0, 0, 0, 0 ]'
+                'to satisfy [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                ')'
             );
         });
 
@@ -386,7 +437,14 @@ describe('unexpected-moment', function () {
                 '{\n' +
                 '  year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0,\n' +
                 '  millisecond: 0\n' +
-                '}'
+                '}\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  {\n' +
+                '    years: 2016, months: 0, date: 1, hours: 0, minutes: 0, seconds: 0,\n' +
+                '    milliseconds: 0\n' +
+                '  }\n' +
+                ')'
             );
         });
 
@@ -397,18 +455,30 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
-                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')'
+                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  new Date(\n' +
+                '    \'Fri Jan 01 2016 01:00:00 GMT+0100 (CET)\' // should be \'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\'\n' +
+                '                                              // -Fri Jan 01 2016 01:00:00 GMT+0100 (CET)\n' +
+                '                                              // +Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\n' +
+                '  )\n' +
+                ')'
             );
         });
 
         it('does not include the diff if the outputs are equal for a string value', function () {
             expect(
                 function () {
-                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', '2016-01-01T00:00:00+01:00');
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', '2016-01-01T00:00:00');
                 },
                 'to error with',
                 'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
-                'to satisfy \'2016-01-01T00:00:00+01:00\''
+                'to satisfy \'2016-01-01T00:00:00\'\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  \'2016-01-01T00:00:00\'\n' +
+                ')'
             );
         });
 
@@ -418,23 +488,13 @@ describe('unexpected-moment', function () {
                     expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', 1451602800000);
                 },
                 'to error with',
-                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
-                'to satisfy 1451602800000'
-            );
-        });
-
-        // TODO
-        it.skip('throws the correct error for utc moments when passed a value that has no timezone information', function () {
-            expect(
-                function () {
-                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', [2016, 0, 1, 0, 0, 0, 0]);
-                },
-                'to error with',
-                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
-                'to satisfy [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\') ' +
+                'to satisfy 1451602800000\n' +
                 '\n' +
-                'moment.utc( // should be moment(\n' +
-                '  [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                'moment.utc( // should be in local time\n' +
+                '  1451606400000 // should be 1451602800000\n' +
+                '                // -1451606400000\n' +
+                '                // +1451602800000\n' +
                 ')'
             );
         });
@@ -771,8 +831,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
                 'to be the start of year\n' +
                 '\n' +
-                '-moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
-                '+moment(\'2016-01-01T00:00:00.000+01:00\')'
+                'moment(\n' +
+                '  \'2016-01-02T00:00:00.000+01:00\' // should be \'2016-01-01T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-02T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-01T00:00:00.000+01:00\n' +
+                ')'
             );
         });
 
@@ -846,8 +909,11 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
                 'to be the end of year\n' +
                 '\n' +
-                '-moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
-                '+moment(\'2016-12-31T23:59:59.999+01:00\')'
+                'moment(\n' +
+                '  \'2016-01-02T00:00:00.000+01:00\' // should be \'2016-12-31T23:59:59.999+01:00\'\n' +
+                '                                  // -2016-01-02T00:00:00.000+01:00\n' +
+                '                                  // +2016-12-31T23:59:59.999+01:00\n' +
+                ')'
             );
         });
 
