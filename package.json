@@ -9,10 +9,10 @@
   "scripts": {
     "lint": "eslint .",
     "test": "TZ='Europe/Copenhagen' mocha test/**/*.js documentation/**/*.md && npm run lint",
-    "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
-    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
-    "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
-    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
+    "travis": "TZ='Europe/Copenhagen' npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
+    "coverage": "TZ='Europe/Copenhagen' NODE_ENV=development istanbul cover _mocha -- --reporter dot",
+    "generate-site": "TZ='Europe/Copenhagen' generate-site --require ./bootstrap-unexpected-markdown.js",
+    "update-examples": "TZ='Europe/Copenhagen' generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
   },
   "repository": {
     "type": "git",
