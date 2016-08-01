@@ -670,6 +670,28 @@ describe('unexpected-moment', function () {
             expect(moment(1), 'to be between', moment(0), moment(2));
         });
 
+        it('throws if \'from\' is an empty array', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be between', [], moment('2016-01-03'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be between [] and moment(\'2016-01-03T00:00:00.000+01:00\')'
+            );
+        });
+
+        it('throws if \'to\' is an empty object', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be between', moment('2016-01-02'), {});
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be between moment(\'2016-01-02T00:00:00.000+01:00\') and {}'
+            );
+        });
+
         it('throws the correct error if the assertion fails', function () {
             expect(
                 function () {
