@@ -59,6 +59,18 @@
             </li>
             
             <li class="">
+                <a href="../to-be-between">to be between</a>
+            </li>
+            
+            <li class="">
+                <a href="../to-be-same-or-after">to be same or after</a>
+            </li>
+            
+            <li class="">
+                <a href="../to-be-same-or-before">to be same or before</a>
+            </li>
+            
+            <li class="">
                 <a href="../to-be-the-end-of">to be the end of</a>
             </li>
             
@@ -72,6 +84,10 @@
             
             <li class="">
                 <a href="../to-satisfy">to satisfy</a>
+            </li>
+            
+            <li class="">
+                <a href="../when-formatted">when formatted</a>
             </li>
             
             <li class="">
@@ -94,7 +110,19 @@
 <div class="code lang-javascript">
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-01-01&nbsp;01'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;the&nbsp;start&nbsp;of&nbsp;year'</span><span style="color: #000000">);</span></div>
 </div><div class="output">
-  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #0086b3">2015-01-01T01:00:00.000+01:00</span>)&nbsp;<span style="color: red; font-weight: bold">to&nbsp;be&nbsp;the&nbsp;start&nbsp;of&nbsp;year</span></div>
+  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-01-01T01:00:00.000+01:00'</span>)&nbsp;<span style="color: red; font-weight: bold">to&nbsp;be&nbsp;the&nbsp;start&nbsp;of&nbsp;year</span></div>
+  <div>&nbsp;</div>
+  <div><span style="color: #795da3">moment</span>(</div>
+  <div>&nbsp;&nbsp;<span style="color: #df5000">'2015-01-01T01:00:00.000+01:00'</span>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: red; font-weight: bold">//</span></div>
+  <div><span style="color: red; font-weight: bold">//</span></div>
+</div>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">should&nbsp;be&nbsp;</span><span style="color: #df5000">'2015-01-01T00:00:00.000+01:00'</span></div>
+  <div><span style="color: red">2015-01-</span><span style="background-color: red; color: white">01T01</span><span style="color: red">:00:00.000+01:00</span></div>
+  <div><span style="color: green">2015-01-</span><span style="background-color: green; color: white">01T00</span><span style="color: green">:00:00.000+01:00</span></div>
+</div></div>
+  <div>)</div>
 </div>
         </div>
     </div>

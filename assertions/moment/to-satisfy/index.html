@@ -59,6 +59,18 @@
             </li>
             
             <li class="">
+                <a href="../to-be-between">to be between</a>
+            </li>
+            
+            <li class="">
+                <a href="../to-be-same-or-after">to be same or after</a>
+            </li>
+            
+            <li class="">
+                <a href="../to-be-same-or-before">to be same or before</a>
+            </li>
+            
+            <li class="">
                 <a href="../to-be-the-end-of">to be the end of</a>
             </li>
             
@@ -75,6 +87,10 @@
             </li>
             
             <li class="">
+                <a href="../when-formatted">when formatted</a>
+            </li>
+            
+            <li class="">
                 <a href="../when-formatted-with">when formatted with</a>
             </li>
             
@@ -88,7 +104,7 @@
             
                 <ul class="declarations">
                 
-                    <li>&lt;moment&gt; to satisfy &lt;any&gt;</li>
+                    <li>&lt;moment&gt; to satisfy &lt;moment|string|number|date|array|object&gt;</li>
                 
                 </ul>
             
@@ -96,16 +112,81 @@
 <div class="code lang-javascript">
   <div><span style="color: #a71d5d">var</span>&nbsp;date&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">();</span></div>
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-11-01'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'2015-11-01'</span><span style="color: #000000">);</span></div>
-</div><p>Unlike <a href="">to-equal</a>, you can check against any object that represents an instance of time, as supported by <a href="http://momentjs.com/docs/#/query/is-same/">moment#isSame</a>:</p>
+</div><p>Unlike <a href="">to-equal</a>, you can check against any object that represents an instance
+of time, as supported by <a href="http://momentjs.com/docs/#/query/is-same/">moment#isSame</a>:</p>
 <div class="code lang-javascript">
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-11-01'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;year<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2015</span><span style="color: #000000">,</span>&nbsp;month<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">10</span><span style="color: #000000">,</span>&nbsp;day<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">1</span>&nbsp;<span style="color: #000000">});</span></div>
 </div><p>When the assertion fails you&#39;ll get this output:</p>
 <div class="code lang-javascript">
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-11-01'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{</span>&nbsp;year<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2015</span><span style="color: #000000">,</span>&nbsp;month<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">11</span><span style="color: #000000">,</span>&nbsp;day<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">1</span>&nbsp;<span style="color: #000000">});</span></div>
 </div><div class="output">
-  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #0086b3">2015-11-01T00:00:00.000+01:00</span>)</div>
+  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-11-01T00:00:00.000+01:00'</span>)</div>
   <div><span style="color: red; font-weight: bold">to&nbsp;satisfy</span>&nbsp;{&nbsp;<span style="color: #555">year</span>:&nbsp;<span style="color: #0086b3">2015</span>,&nbsp;<span style="color: #555">month</span>:&nbsp;<span style="color: #0086b3">11</span>,&nbsp;<span style="color: #555">day</span>:&nbsp;<span style="color: #0086b3">1</span>&nbsp;}</div>
-</div>
+  <div>&nbsp;</div>
+  <div><span style="color: #795da3">moment</span>(</div>
+  <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div>{</div>
+  <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #555">years</span>:&nbsp;<span style="color: #0086b3">2015</span>,</div>
+</div></div>
+  <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #555">months</span>:&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #0086b3">10</span>,</div>
+</div>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">//</span></div>
+</div>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">should&nbsp;equal</span>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #0086b3">11</span></div>
+</div></div>
+</div></div>
+</div></div>
+  <div>&nbsp;&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: #555">date</span>:&nbsp;<span style="color: #0086b3">1</span></div>
+</div></div>
+  <div>}</div>
+</div></div>
+  <div>)</div>
+</div><h2 id="variations-with-moment-issame-">Variations with <code>moment#isSame</code></h2>
+<p>There are some subtle differences with
+<a href="http://momentjs.com/docs/#/query/is-same/">moment#isSame</a> that you should be
+aware of:</p>
+<ul>
+<li>Empty arrays are not deemed as valid values</li>
+<li>Empty objects are not deemed as valid values</li>
+<li>Objects with invalid units are also deemed as invalid</li>
+</ul>
+<div class="code lang-javascript">
+  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(),</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">[]);</span></div>
+  <div><span style="color: #000000">},</span>&nbsp;<span style="color: #df5000">'to&nbsp;error'</span><span style="color: #000000">);</span><span style="color: #969896">&nbsp;//&nbsp;even&nbsp;though&nbsp;moment().isSame([])&nbsp;===&nbsp;true</span></div>
+  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #a71d5d">function</span>&nbsp;<span style="color: #000000">()</span>&nbsp;<span style="color: #000000">{</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(),</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">{});</span></div>
+  <div><span style="color: #000000">},</span>&nbsp;<span style="color: #df5000">'to&nbsp;error'</span><span style="color: #000000">);</span><span style="color: #969896">&nbsp;//&nbsp;even&nbsp;though&nbsp;moment().isSame({})&nbsp;===&nbsp;true</span></div>
+</div><div class="code lang-javascript">
+  <div><span style="color: #a71d5d">var</span>&nbsp;theMoment&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2016-08-03'</span><span style="color: #000000">);</span></div>
+  <div><span style="color: #a71d5d">var</span>&nbsp;theObject&nbsp;<span style="color: #a71d5d">=</span>&nbsp;<span style="color: #000000">{</span>&nbsp;year<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">2016</span><span style="color: #000000">,</span>&nbsp;month<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">7</span><span style="color: #000000">,</span>&nbsp;date<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">3</span><span style="color: #000000">,</span>&nbsp;minyte<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">4</span><span style="color: #000000">,</span>&nbsp;second<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span><span style="color: #000000">,</span>&nbsp;millisecond<span style="color: #000000">:</span>&nbsp;<span style="color: #0086b3">0</span>&nbsp;<span style="color: #000000">};</span></div>
+  <div><span style="color: #969896">//&nbsp;this&nbsp;fails&nbsp;even&nbsp;though&nbsp;theMoment.isSame(theObject)&nbsp;===&nbsp;true</span></div>
+  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span>theMoment<span style="color: #000000">,</span>&nbsp;<span style="color: #df5000">'to&nbsp;satisfy'</span><span style="color: #000000">,</span>&nbsp;theObject<span style="color: #000000">);</span></div>
+</div><div class="output">
+  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2016-08-03T00:00:00.000+02:00'</span>)</div>
+  <div><span style="color: red; font-weight: bold">to&nbsp;satisfy</span>&nbsp;{&nbsp;<span style="color: #555">year</span>:&nbsp;<span style="color: #0086b3">2016</span>,&nbsp;<span style="color: #555">month</span>:&nbsp;<span style="color: #0086b3">7</span>,&nbsp;<span style="color: #555">date</span>:&nbsp;<span style="color: #0086b3">3</span>,&nbsp;<span style="color: #555">minyte</span>:&nbsp;<span style="color: #0086b3">4</span>,&nbsp;<span style="color: #555">second</span>:&nbsp;<span style="color: #0086b3">0</span>,&nbsp;<span style="color: #555">millisecond</span>:&nbsp;<span style="color: #0086b3">0</span>&nbsp;}</div>
+  <div>&nbsp;</div>
+  <div><div style="display: inline-block; vertical-align: top">
+  <div>{</div>
+  <div>&nbsp;&nbsp;<span style="color: #555">year</span>:&nbsp;<span style="color: #0086b3">2016</span>,</div>
+  <div>&nbsp;&nbsp;<span style="color: #555">month</span>:&nbsp;<span style="color: #0086b3">7</span>,</div>
+  <div>&nbsp;&nbsp;<span style="color: #555">date</span>:&nbsp;<span style="color: #0086b3">3</span>,</div>
+  <div>&nbsp;&nbsp;<span style="color: #555">minyte</span>:&nbsp;<span style="color: #0086b3">4</span>,&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">//</span></div>
+</div>&nbsp;<div style="display: inline-block; vertical-align: top">
+  <div><span style="color: red; font-weight: bold">not&nbsp;a&nbsp;valid&nbsp;unit</span></div>
+</div></div>
+  <div>&nbsp;&nbsp;<span style="color: #555">second</span>:&nbsp;<span style="color: #0086b3">0</span>,</div>
+  <div>&nbsp;&nbsp;<span style="color: #555">millisecond</span>:&nbsp;<span style="color: #0086b3">0</span></div>
+  <div>}</div>
+</div></div>
+</div><p>This is aimed at giving you more confidence in your tests.</p>
+
         </div>
     </div>
 </section>

@@ -59,6 +59,18 @@
             </li>
             
             <li class="">
+                <a href="../to-be-between">to be between</a>
+            </li>
+            
+            <li class="">
+                <a href="../to-be-same-or-after">to be same or after</a>
+            </li>
+            
+            <li class="">
+                <a href="../to-be-same-or-before">to be same or before</a>
+            </li>
+            
+            <li class="">
                 <a href="../to-be-the-end-of">to be the end of</a>
             </li>
             
@@ -75,6 +87,10 @@
             </li>
             
             <li class="">
+                <a href="../when-formatted">when formatted</a>
+            </li>
+            
+            <li class="">
                 <a href="../when-formatted-with">when formatted with</a>
             </li>
             
@@ -88,7 +104,7 @@
             
                 <ul class="declarations">
                 
-                    <li>&lt;moment&gt; [not] to be before &lt;any&gt;</li>
+                    <li>&lt;moment&gt; [not] to be before &lt;moment|string|number|date|array|object&gt;</li>
                 
                 </ul>
             
@@ -100,8 +116,8 @@
 <div class="code lang-javascript">
   <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-04-03'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;before'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-02-03'</span><span style="color: #000000">));</span></div>
 </div><div class="output">
-  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #0086b3">2015-04-03T00:00:00.000+02:00</span>)</div>
-  <div><span style="color: red; font-weight: bold">to&nbsp;be&nbsp;before</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #0086b3">2015-02-03T00:00:00.000+01:00</span>)</div>
+  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-04-03T00:00:00.000+02:00'</span>)</div>
+  <div><span style="color: red; font-weight: bold">to&nbsp;be&nbsp;before</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-02-03T00:00:00.000+01:00'</span>)</div>
 </div>
         </div>
     </div>

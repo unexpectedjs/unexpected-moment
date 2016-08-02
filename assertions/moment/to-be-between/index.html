@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../../static/normalize.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="../../../static/main.css" type="text/css" media="screen" />
     <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="../../../static/bug-icon-black.ico">
-    <title>moment - to be the end of</title>
+    <title>moment - to be between</title>
 </head>
 <body class="sidebar-hidden has-sidebar">
     <header>
@@ -58,8 +58,8 @@
                 <a href="../to-be-before">to be before</a>
             </li>
             
-            <li class="">
-                <a href="../to-be-between">to be between</a>
+            <li class="active">
+                <a href="">to be between</a>
             </li>
             
             <li class="">
@@ -70,8 +70,8 @@
                 <a href="../to-be-same-or-before">to be same or before</a>
             </li>
             
-            <li class="active">
-                <a href="">to be the end of</a>
+            <li class="">
+                <a href="../to-be-the-end-of">to be the end of</a>
             </li>
             
             <li class="">
@@ -100,29 +100,26 @@
 
     <div class="main" tabindex="-1">
         <div class="content">
-            <h1>to be the end of</h1>
+            <h1>to be between</h1>
             
-            <p>Passes if the moment instance represents the end of a unit of time.</p>
+                <ul class="declarations">
+                
+                    <li>&lt;moment&gt; [not] to be [inclusively] between &lt;moment|string|number|date|array|object&gt; &lt;moment|string|number|date|array|object&gt;</li>
+                
+                </ul>
+            
+            <p>Passes if the moment instance is between two other given instances:</p>
 <div class="code lang-javascript">
-  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-01-01&nbsp;23:59:59.999'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;the&nbsp;end&nbsp;of&nbsp;day'</span><span style="color: #000000">);</span></div>
-</div><p>It supports end-of-time units that are supported by <a href="http://momentjs.com/docs/#/manipulating/end-of/">moment#endOf</a>.</p>
-<p>When the assertion fails you&#39;ll get this output:</p>
+  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;between'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">().</span><span style="color: #000000">startOf</span><span style="color: #000000">(</span><span style="color: #df5000">'day'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">().</span><span style="color: #000000">endOf</span><span style="color: #000000">(</span><span style="color: #df5000">'day'</span><span style="color: #000000">))</span></div>
+</div><p>To include the end-points as valid values, use</p>
 <div class="code lang-javascript">
-  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-01-01&nbsp;00:00:00'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;the&nbsp;end&nbsp;of&nbsp;day'</span><span style="color: #000000">);</span></div>
+  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #0086b3">0</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;inclusively&nbsp;between'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #0086b3">0</span><span style="color: #000000">),</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #0086b3">10</span><span style="color: #000000">))</span></div>
+</div><p>Failing assertions gives the following:</p>
+<div class="code lang-javascript">
+  <div><span style="color: #000000">expect</span><span style="color: #000000">(</span><span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-01-01'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #df5000">'to&nbsp;be&nbsp;between'</span><span style="color: #000000">,</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-02-01'</span><span style="color: #000000">),</span>&nbsp;<span style="color: #000000">moment</span><span style="color: #000000">(</span><span style="color: #df5000">'2015-03-01'</span><span style="color: #000000">));</span></div>
 </div><div class="output">
-  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-01-01T00:00:00.000+01:00'</span>)&nbsp;<span style="color: red; font-weight: bold">to&nbsp;be&nbsp;the&nbsp;end&nbsp;of&nbsp;day</span></div>
-  <div>&nbsp;</div>
-  <div><span style="color: #795da3">moment</span>(</div>
-  <div>&nbsp;&nbsp;<span style="color: #df5000">'2015-01-01T00:00:00.000+01:00'</span>&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: red; font-weight: bold">//</span></div>
-  <div><span style="color: red; font-weight: bold">//</span></div>
-  <div><span style="color: red; font-weight: bold">//</span></div>
-</div>&nbsp;<div style="display: inline-block; vertical-align: top">
-  <div><span style="color: red; font-weight: bold">should&nbsp;be&nbsp;</span><span style="color: #df5000">'2015-01-01T23:59:59.999+01:00'</span></div>
-  <div><span style="color: red">2015-01-</span><span style="background-color: red; color: white">01T00</span><span style="color: red">:</span><span style="background-color: red; color: white">00</span><span style="color: red">:</span><span style="background-color: red; color: white">00</span><span style="color: red">.</span><span style="background-color: red; color: white">000</span><span style="color: red">+01:00</span></div>
-  <div><span style="color: green">2015-01-</span><span style="background-color: green; color: white">01T23</span><span style="color: green">:</span><span style="background-color: green; color: white">59</span><span style="color: green">:</span><span style="background-color: green; color: white">59</span><span style="color: green">.</span><span style="background-color: green; color: white">999</span><span style="color: green">+01:00</span></div>
-</div></div>
-  <div>)</div>
+  <div><span style="color: red; font-weight: bold">expected</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-01-01T00:00:00.000+01:00'</span>)</div>
+  <div><span style="color: red; font-weight: bold">to&nbsp;be&nbsp;between</span>&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-02-01T00:00:00.000+01:00'</span>)&nbsp;and&nbsp;<span style="color: #795da3">moment</span>(<span style="color: #df5000">'2015-03-01T00:00:00.000+01:00'</span>)</div>
 </div>
         </div>
     </div>
