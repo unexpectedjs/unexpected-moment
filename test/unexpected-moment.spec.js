@@ -1,5 +1,4 @@
-var sinon = require('sinon'),
-    moment = require('moment-timezone'),
+var moment = require('moment-timezone'),
     unexpected = require('unexpected'),
     unexpectedMoment = require('../lib/unexpected-moment');
 
@@ -7,398 +6,977 @@ describe('unexpected-moment', function () {
     var expect = unexpected.clone()
         .use(unexpectedMoment);
 
-    var clock;
-    var oneSecond;
-    var oneMinute;
-    var oneHour;
-    var oneDay;
-    var oneWeek;
-    var oneMonth;
-    var oneYear;
-
     before(function () {
-        clock = sinon.useFakeTimers();
-
         moment.tz.add('Europe/Copenhagen|CET CEST|-10 -20|0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-2azC0 Tz0 VuO0 60q0 WM0 1fA0 1cM0 1cM0 1cM0 S00 1HA0 Nc0 1C00 Dc0 1Nc0 Ao0 1h5A0 1a00 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1cM0 1fA0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00');
         moment.tz.setDefault('Europe/Copenhagen');
-
-        oneSecond = moment.duration(1, 'second').valueOf();
-        oneMinute = moment.duration(1, 'minute').valueOf();
-        oneHour = moment.duration(1, 'hour').valueOf();
-        oneDay = moment.duration(1, 'day').valueOf();
-        oneWeek = moment.duration(1, 'week').valueOf();
-        oneMonth = moment.duration(1, 'month').valueOf();
-        oneYear = moment.duration(1, 'year').valueOf();
     });
 
-    after(function () {
-        clock.restore();
-    });
-
-    it('identifies a moment.js instance', function () {
-        expect(moment(), 'to be a moment');
-    });
-
-    it('does not falsely identify a date instance as a moment.js instance', function () {
-        expect(new Date(), 'not to be a moment');
-    });
-
-    it('identifies a moment as equal to it\'s clone', function () {
-        var m = moment();
-        expect(m, 'to equal', m.clone());
-    });
-
-    it('identifies two unequal moments', function () {
-        expect(moment(0), 'not to equal', moment(1));
-    });
-
-    it('identifies strict equality in moments', function () {
-        expect(moment(0), 'to equal', moment(0));
-        expect(moment(0), 'not to equal', new Date(0));
-    });
-
-    it('identifies a moment that occurs before another chronologically', function () {
-        expect(moment(0), 'to be before', moment(1));
-        expect(moment(0), 'to be before', moment(1).toISOString());
-        expect(moment(0), 'to be before', moment(1).toArray());
-        expect(moment(0), 'to be before', moment(1).toDate());
-        expect(moment(0), 'to be before', moment(1).valueOf());
-        expect(moment(0), 'to be before', moment(1).toObject());
-
-
-        expect(moment(1), 'not to be before', moment(0));
-        expect(moment(1), 'not to be before', moment(0).toISOString());
-        expect(moment(1), 'not to be before', moment(0).toArray());
-        expect(moment(1), 'not to be before', moment(0).toDate());
-        expect(moment(1), 'not to be before', moment(0).valueOf());
-        expect(moment(1), 'not to be before', moment(0).toObject());
-    });
-
-    it('identifies a moment that occurs after another chronologically', function () {
-        expect(moment(1), 'to be after', moment(0));
-        expect(moment(1), 'to be after', moment(0).toISOString());
-        expect(moment(1), 'to be after', moment(0).toArray());
-        expect(moment(1), 'to be after', moment(0).toDate());
-        expect(moment(1), 'to be after', moment(0).valueOf());
-        expect(moment(1), 'to be after', moment(0).toObject());
-
-        expect(moment(0), 'not to be after', moment(1));
-        expect(moment(0), 'not to be after', moment(1).toISOString());
-        expect(moment(0), 'not to be after', moment(1).toArray());
-        expect(moment(0), 'not to be after', moment(1).toDate());
-        expect(moment(0), 'not to be after', moment(1).valueOf());
-        expect(moment(0), 'not to be after', moment(1).toObject());
-    });
-
-    it('identifies a moment that occurs at same time or before another chronologically', function () {
-        expect(moment(0), 'to be same or before', moment(1));
-        expect(moment(0), 'to be same or before', moment(1).toISOString());
-        expect(moment(0), 'to be same or before', moment(1).toArray());
-        expect(moment(0), 'to be same or before', moment(1).toDate());
-        expect(moment(0), 'to be same or before', moment(1).valueOf());
-        expect(moment(0), 'to be same or before', moment(1).toObject());
-
-        expect(moment(1), 'not to be same or before', moment(0));
-        expect(moment(1), 'not to be same or before', moment(0).toISOString());
-        expect(moment(1), 'not to be same or before', moment(0).toArray());
-        expect(moment(1), 'not to be same or before', moment(0).toDate());
-        expect(moment(1), 'not to be same or before', moment(0).valueOf());
-        expect(moment(1), 'not to be same or before', moment(0).toObject());
-
-        expect(moment(0), 'to be same or before', moment(0));
-        expect(moment(0), 'to be same or before', moment(0).toISOString());
-        expect(moment(0), 'to be same or before', moment(0).toArray());
-        expect(moment(0), 'to be same or before', moment(0).toDate());
-        expect(moment(0), 'to be same or before', moment(0).valueOf());
-        expect(moment(0), 'to be same or before', moment(0).toObject());
-
-        expect(moment(1), 'not to be same or before', moment(0));
-        expect(moment(1), 'not to be same or before', moment(0).toISOString());
-        expect(moment(1), 'not to be same or before', moment(0).toArray());
-        expect(moment(1), 'not to be same or before', moment(0).toDate());
-        expect(moment(1), 'not to be same or before', moment(0).valueOf());
-        expect(moment(1), 'not to be same or before', moment(0).toObject());
-    });
-
-    it('identifies a moment that occurs at same time or after chronologically', function () {
-        expect(moment(1), 'to be same or after', moment(0));
-        expect(moment(1), 'to be same or after', moment(0).toISOString());
-        expect(moment(1), 'to be same or after', moment(0).toArray());
-        expect(moment(1), 'to be same or after', moment(0).toDate());
-        expect(moment(1), 'to be same or after', moment(0).valueOf());
-        expect(moment(1), 'to be same or after', moment(0).toObject());
-
-        expect(moment(0), 'not to be same or after', moment(1));
-        expect(moment(0), 'not to be same or after', moment(1).toISOString());
-        expect(moment(0), 'not to be same or after', moment(1).toArray());
-        expect(moment(0), 'not to be same or after', moment(1).toDate());
-        expect(moment(0), 'not to be same or after', moment(1).valueOf());
-        expect(moment(0), 'not to be same or after', moment(1).toObject());
-
-        expect(moment(0), 'to be same or after', moment(0));
-        expect(moment(0), 'to be same or after', moment(0).toISOString());
-        expect(moment(0), 'to be same or after', moment(0).toArray());
-        expect(moment(0), 'to be same or after', moment(0).toDate());
-        expect(moment(0), 'to be same or after', moment(0).valueOf());
-        expect(moment(0), 'to be same or after', moment(0).toObject());
-    });
-
-    it('identifies moments between other moments', function () {
-        expect(moment(0), 'not to be between', moment(0), moment(2));
-        expect(moment(1), 'to be between', moment(0), moment(2));
-        expect(moment(2), 'not to be between', moment(0), moment(2));
-
-        // Inclusivity
-        expect(moment(0), 'not to be inclusively between', moment(1), moment(2));
-        expect(moment(1), 'to be inclusively between', moment(1), moment(2));
-        expect(moment(2), 'to be inclusively between', moment(1), moment(2));
-        expect(moment(3), 'not to be inclusively between', moment(1), moment(2));
-    });
-
-    it('allows formatting moments asserting against expected string outputs', function () {
-        expect(moment(1), 'when formatted with', 'YYYY', 'to be', '1970');
-        expect(moment(1), 'when formatted with', 'YYYY', 'to equal', '1970');
-        expect(moment(1), 'when formatted with', 'YYYYMM', 'not to be', '1970');
-        expect(moment(1), 'when formatted with', 'YYYYMM', 'not to equal', '1970');
-
-        expect(moment.utc(), 'when formatted with', '', 'to be', '1970-01-01T00:00:00Z');
-        expect(moment.utc(), 'when formatted with', '', 'to equal', '1970-01-01T00:00:00Z');
-        expect(moment.utc(1000), 'when formatted with', '', 'not to be', '1970-01-01T00:00:00Z');
-        expect(moment.utc(1000), 'when formatted with', '', 'not to equal', '1970-01-01T00:00:00Z');
-    });
-
-    it('identifies (un)equality in various granularity levels', function () {
-        expect(moment(1), 'to equal', moment(1), 'in milliseconds');
-        expect(moment(1), 'to equal', moment(1), 'in seconds');
-        expect(moment(1), 'to equal', moment(1), 'in minutes');
-        expect(moment(1), 'to equal', moment(1), 'in hours');
-        expect(moment(1), 'to equal', moment(1), 'in days');
-        expect(moment(1), 'to equal', moment(1), 'in weeks');
-        expect(moment(1), 'to equal', moment(1), 'in months');
-        expect(moment(1), 'to equal', moment(1), 'in years');
-
-        expect(moment(1), 'not to equal', moment(2), 'in milliseconds');
-        expect(moment(1), 'to equal', moment(2), 'in seconds');
-        expect(moment(1), 'to equal', moment(2), 'in minutes');
-        expect(moment(1), 'to equal', moment(2), 'in hours');
-        expect(moment(1), 'to equal', moment(2), 'in days');
-        expect(moment(1), 'to equal', moment(2), 'in weeks');
-        expect(moment(1), 'to equal', moment(2), 'in months');
-        expect(moment(1), 'to equal', moment(2), 'in years');
-
-        expect(moment(oneSecond), 'not to equal', moment(oneSecond + oneSecond), 'in milliseconds');
-        expect(moment(oneSecond), 'not to equal', moment(oneSecond + oneSecond), 'in seconds');
-        expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in minutes');
-        expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in hours');
-        expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in days');
-        expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in weeks');
-        expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in months');
-        expect(moment(oneSecond), 'to equal', moment(oneSecond + oneSecond), 'in years');
-
-        expect(moment(oneMinute), 'not to equal', moment(oneMinute + oneMinute), 'in milliseconds');
-        expect(moment(oneMinute), 'not to equal', moment(oneMinute + oneMinute), 'in seconds');
-        expect(moment(oneMinute), 'not to equal', moment(oneMinute + oneMinute), 'in minutes');
-        expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in hours');
-        expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in days');
-        expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in weeks');
-        expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in months');
-        expect(moment(oneMinute), 'to equal', moment(oneMinute + oneMinute), 'in years');
-
-        expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in milliseconds');
-        expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in seconds');
-        expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in minutes');
-        expect(moment(oneHour), 'not to equal', moment(oneHour + oneHour), 'in hours');
-        expect(moment(oneHour), 'to equal', moment(oneHour + oneHour), 'in days');
-        expect(moment(oneHour), 'to equal', moment(oneHour + oneHour), 'in weeks');
-        expect(moment(oneHour), 'to equal', moment(oneHour + oneHour), 'in months');
-        expect(moment(oneHour), 'to equal', moment(oneHour + oneHour), 'in years');
-
-        expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in milliseconds');
-        expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in seconds');
-        expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in minutes');
-        expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in hours');
-        expect(moment(oneDay), 'not to equal', moment(oneDay + oneDay), 'in days');
-        expect(moment(oneDay), 'to equal', moment(oneDay + oneDay), 'in weeks');
-        expect(moment(oneDay), 'to equal', moment(oneDay + oneDay), 'in months');
-        expect(moment(oneDay), 'to equal', moment(oneDay + oneDay), 'in years');
-
-        expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in milliseconds');
-        expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in seconds');
-        expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in minutes');
-        expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in hours');
-        expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in days');
-        expect(moment(oneWeek), 'not to equal', moment(oneWeek + oneWeek), 'in weeks');
-        expect(moment(oneWeek), 'to equal', moment(oneWeek + oneWeek), 'in months');
-        expect(moment(oneWeek), 'to equal', moment(oneWeek + oneWeek), 'in years');
-
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in milliseconds');
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in seconds');
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in minutes');
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in hours');
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in days');
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in weeks');
-        expect(moment(oneMonth), 'not to equal', moment(oneMonth + oneMonth), 'in months');
-        expect(moment(oneMonth), 'to equal', moment(oneMonth + oneMonth), 'in years');
-
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in milliseconds');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in seconds');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in minutes');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in hours');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in days');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in weeks');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in months');
-        expect(moment(oneYear), 'not to equal', moment(oneYear + oneYear), 'in years');
-    });
-
-    it('identifies if a moment is the start of a unit of time', function () {
-        expect(moment(123456).startOf('second'), 'to be the start of second');
-        expect(moment(123456).startOf('minute'), 'to be the start of minute');
-        expect(moment(123456).startOf('hour'), 'to be the start of hour');
-        expect(moment(123456).startOf('day'), 'to be the start of day');
-        expect(moment(123456).startOf('week'), 'to be the start of week');
-        expect(moment(123456).startOf('isoWeek'), 'to be the start of isoWeek');
-        expect(moment(123456).startOf('month'), 'to be the start of month');
-        expect(moment(123456).startOf('quarter'), 'to be the start of quarter');
-        expect(moment(123456).startOf('year'), 'to be the start of year');
-
-        expect(moment(123456).startOf('second').add(1), 'not to be the start of second');
-        expect(moment(123456).startOf('minute').add(1, 'second'), 'not to be the start of minute');
-        expect(moment(123456).startOf('hour').add(1, 'second'), 'not to be the start of hour');
-        expect(moment(123456).startOf('day').add(1, 'second'), 'not to be the start of day');
-        expect(moment(123456).startOf('week').add(1, 'second'), 'not to be the start of week');
-        expect(moment(123456).startOf('isoWeek').add(1, 'second'), 'not to be the start of isoWeek');
-        expect(moment(123456).startOf('month').add(1, 'second'), 'not to be the start of month');
-        expect(moment(123456).startOf('quarter').add(1, 'second'), 'not to be the start of quarter');
-        expect(moment(123456).startOf('year').add(1, 'second'), 'not to be the start of year');
-    });
-
-    it('identifies if a moment is the end of a unit of time', function () {
-        expect(moment(123456).endOf('second'), 'to be the end of second');
-        expect(moment(123456).endOf('minute'), 'to be the end of minute');
-        expect(moment(123456).endOf('hour'), 'to be the end of hour');
-        expect(moment(123456).endOf('day'), 'to be the end of day');
-        expect(moment(123456).endOf('week'), 'to be the end of week');
-        expect(moment(123456).endOf('isoWeek'), 'to be the end of isoWeek');
-        expect(moment(123456).endOf('month'), 'to be the end of month');
-        expect(moment(123456).endOf('quarter'), 'to be the end of quarter');
-        expect(moment(123456).endOf('year'), 'to be the end of year');
-
-        expect(moment(123456).endOf('second').subtract(1), 'not to be the end of second');
-        expect(moment(123456).endOf('minute').subtract(1, 'second'), 'not to be the end of minute');
-        expect(moment(123456).endOf('hour').subtract(1, 'second'), 'not to be the end of hour');
-        expect(moment(123456).endOf('day').subtract(1, 'second'), 'not to be the end of day');
-        expect(moment(123456).endOf('week').subtract(1, 'second'), 'not to be the end of week');
-        expect(moment(123456).endOf('isoWeek').subtract(1, 'second'), 'not to be the end of isoWeek');
-        expect(moment(123456).endOf('month').subtract(1, 'second'), 'not to be the end of month');
-        expect(moment(123456).endOf('quarter').subtract(1, 'second'), 'not to be the end of quarter');
-        expect(moment(123456).endOf('year').subtract(1, 'second'), 'not to be the end of year');
-    });
-
-    it('identifies satisfaction and dissatisfaction in moments', function () {
-    // it('identifies satisfying and disatisfying moments/dates', function () {
-        var aMoment = moment('2015-01-01T00:00:00+01:00');
-        var aUtcMoment = moment.utc('2015-01-01T00:00:00+00:00');
-
-        expect(aMoment, 'to satisfy', aMoment.clone());
-        expect(aMoment, 'not to satisfy', aMoment.clone().add(1));
-
-        expect(moment(1000), 'to satisfy', moment(1000));
-        expect(moment(1000), 'not to satisfy', moment(2000));
-
-        expect(aMoment, 'to satisfy', aMoment.toDate());
-        expect(aMoment, 'not to equal', aMoment.toDate());
-
-        expect(aUtcMoment, 'to satisfy', new Date('Thu Jan 01 2015 01:00:00 GMT+0100 (CET)'));
-        expect(aUtcMoment, 'not to equal', new Date('Thu Jan 01 2015 01:00:00 GMT+0100 (CET)'));
-
-        expect(aMoment, 'to satisfy', aMoment.toArray());
-        expect(aMoment, 'not to equal', aMoment.toArray());
-        expect(aMoment, 'not to satisfy', [1, 2, 3, 4, 5, 6, 7, 8]);
-
-        expect(aUtcMoment, 'not to satisfy', [2015, 0, 1, 0, 0, 0, 0]); // see: https://github.com/moment/moment/issues/2633
-        expect(aUtcMoment, 'not to equal', [2015, 0, 1, 0, 0, 0, 0]);
-
-
-        expect(aMoment, 'to satisfy', aMoment.toISOString());
-        expect(aMoment, 'to satisfy', aMoment.format());
-
-        expect(aMoment, 'to satisfy', aMoment.toJSON());
-        expect(aMoment, 'not to equal', aMoment.toJSON());
-
-        expect(aUtcMoment, 'to satisfy', '2015-01-01T00:00:00.000Z');
-        expect(aUtcMoment, 'to satisfy', '2015-01-01T00:00:00+00:00');
-        expect(aUtcMoment, 'not to equal', '2015-01-01T00:00:00.000Z');
-
-        expect(aMoment, 'to satisfy', aMoment.toObject());
-        expect(aMoment, 'not to equal', aMoment.toObject());
-
-        expect(aUtcMoment, 'not to satisfy', aUtcMoment.toObject()); // see: https://github.com/moment/moment/issues/2633
-
-        // partial object passes
-        expect(aMoment, 'to satisfy', {
-            years: 2015,
-            date: 1,
-            seconds: 0
+    describe('to be a moment', function () {
+        it('passes if the subject is a moment instance', function () {
+            expect(moment(), 'to be a moment');
         });
 
-        // but not an empty one
-        expect(aMoment, 'not to satisfy', {});
-
-        // TODO: nor one with unkown keys
-        // expect(aUtcMoment, 'not to satisfy', {
-        //     years: 2015,
-        //     mints: 0
-        // });
+        it('throws the correct error if the subject is not a moment instance', function () {
+            expect(function () {
+                expect('not moment', 'to be a moment');
+            }, 'to error with', 'expected \'not moment\' to be a moment');
+        });
     });
 
-    it('does not mutate the moment objects when checking for equality', function () {
-        var moment1 = moment(1000);
-        var moment2 = moment(123456);
-        var moment1Formartted = moment1.format();
-        var moment2Formartted = moment2.format();
-        expect(moment1, 'not to equal', moment2);
-        expect(moment1Formartted, 'to equal', moment1.format());
-        expect(moment2Formartted, 'to equal', moment2.format());
+    describe('not to be a moment', function () {
+        it('does not falsely identify a date instance as a moment instance', function () {
+            expect(new Date(), 'not to be a moment');
+        });
+
+        it('throws the correct error if the subject is a moment instance', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'not to be a moment');
+            }, 'to error with', 'expected moment(\'2016-01-01T00:00:00.000+01:00\') not to be a moment');
+        });
     });
 
-    it('does not mutate the moment objects when checking for satisfaction', function () {
-        var moment1 = moment(1000);
-        var moment2 = moment(123456);
-        var moment1Formartted = moment1.format();
-        var moment2Formartted = moment2.format();
-        expect(moment1, 'not to satisfy', moment2);
-        expect(moment1Formartted, 'to equal', moment1.format());
-        expect(moment2Formartted, 'to equal', moment2.format());
+    describe('to equal', function () {
+        it('passes if the moments are equal', function () {
+            expect(moment(1), 'to equal', moment(1));
+        });
+
+        it('passes if the value is a clone of the subject', function () {
+            var m = moment();
+            expect(m, 'to equal', m.clone());
+        });
+
+        it('allows specifying granularity as the fourth parameter', function () {
+            expect(moment(1), 'to equal', moment(0), 'second');
+        });
+
+        it('allows specifying granularity as a readable label', function () {
+            expect(moment(1), 'to equal', moment(0), 'in years');
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to equal', moment('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to equal moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                '\n' +
+                'moment(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+01:00\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails due to the value being in UTC while the subject is in local time', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to equal', moment.utc('2016-01-01'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to equal moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                '\n' +
+                'moment( // should be moment.utc(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-01T00:00:00.000+00:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-01T00:00:00.000+00:00\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails due to the value being in local time while the subject is in utc', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01'), 'to equal', moment('2016-01-01'));
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to equal moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                '\n' +
+                'moment.utc( // should be moment(\n' +
+                '  \'2016-01-01T00:00:00.000+00:00\' // should be \'2016-01-01T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+00:00\n' +
+                '                                  // +2016-01-01T00:00:00.000+01:00\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the value is not a moment object', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to equal', '2016-01-01');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') to equal \'2016-01-01\''
+            );
+        });
+
+        it('throws the correct error if the assertion fails and granularity is provided', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to equal', moment('2016-01-02'), 'in milliseconds');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to equal moment(\'2016-01-02T00:00:00.000+01:00\') in milliseconds\n' +
+                '\n' +
+                'moment(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+01:00\n' +
+                ')'
+            );
+        });
     });
 
-    it('does not mutate the moment objects when checking for equality at various granularity levels', function () {
-        var moment1 = moment(1000);
-        var moment2 = moment(1500);
-        var moment1Formartted = moment1.format();
-        var moment2Formartted = moment2.format();
-        expect(moment1, 'to equal', moment2, 'in seconds');
-        expect(moment1Formartted, 'to equal', moment1.format());
-        expect(moment2Formartted, 'to equal', moment2.format());
+    describe('not to equal', function () {
+        it('passes if the moments are not equal', function () {
+            expect(moment(0), 'not to equal', moment(1));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'not to equal', moment('2016-01-01'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'not to equal moment(\'2016-01-01T00:00:00.000+01:00\')'
+            );
+        });
     });
 
-    it('does not mutate the moment objects when checking for equality against a certain format', function () {
-        var moment1 = moment(1000);
-        var moment1Formartted = moment1.format();
-        expect(moment1, 'when formatted with', 'YYYYMMDD', 'to equal', '19700101');
-        expect(moment1Formartted, 'to equal', moment1.format());
+    describe('to satisfy', function () {
+        it('passes if the two moments are equal', function () {
+            expect(moment('2016-01-01'), 'to satisfy', moment('2016-01-01'));
+        });
+
+        it('passes if the value is a clone of the subject', function () {
+            var aMoment = moment('2016-01-01');
+            expect(aMoment, 'to satisfy', aMoment.clone());
+        });
+
+        it('passes if passed an ISO-formatted string as the expected value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', '2016-01-01T00:00:00+01:00');
+        });
+
+        it('passes if passed a number as the expected value', function () {
+            expect(moment(123456), 'to satisfy', 123456);
+        });
+
+        it('passes if passed a Date as the expected value', function () {
+            expect(moment('2016-01-01 00:00:01'), 'to satisfy', new Date('2016-01-01 00:00:01'));
+        });
+
+        it('passes if passed an array as the expected value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', [2016, 0, 1, 0, 0, 0, 0]);
+        });
+
+        it('passes if passed an object with a \'day\' unit as the expected value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
+        });
+
+        it('passes if passed an object with a \'date\' unit as the expected value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
+        });
+
+        it('passes with a partial object as the value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', { year: 2016, date: 1, seconds: 0 });
+        });
+
+        it('passes with a partial array as the value', function () {
+            expect(moment('2016-01-01'), 'to satisfy', [ 2016 ]);
+        });
+
+        it('throws if passed an empty object as the value', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'to satisfy', {});
+            }, 'to error');
+        });
+
+        it('throws if passed an empty array as the value', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'to satisfy', []);
+            }, 'to error');
+        });
+
+        it('throws if passed an object with unknown keys', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'to satisfy', {
+                    years: 2016,
+                    mints: 0
+                });
+            }, 'to error');
+        });
+
+        it('throws if passed an empty string as the value', function () {
+            expect(function () {
+                expect(moment('2016-01-01'), 'to satisfy', '');
+            }, 'to error');
+        });
+
+        // see: https://github.com/moment/moment/issues/2633
+        it('throws for utc moments if passed a value that has no timezone information', function () {
+            expect(function () {
+                expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', [2015, 0, 1, 0, 0, 0, 0]);
+            }, 'to error');
+            expect(function () {
+                expect(moment.utc('2015-01-01T00:00:00+00:00'), 'to satisfy', '2015-01-01T00:00:00');
+            }, 'to error');
+        });
+
+        it('throws the correct error if the assertion fails for a moment value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', moment('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                '\n' +
+                'moment(\n' +
+                '  \'2016-01-01T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-01T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+01:00\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for a utc moment value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'to satisfy', moment.utc('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'to satisfy moment.utc(\'2016-01-02T00:00:00.000+00:00\')\n' +
+                '\n' +
+                'moment( // should be moment.utc(\n' +
+                '  \'2016-01-02T00:00:00.000+01:00\' // should be \'2016-01-02T00:00:00.000+00:00\'\n' +
+                '                                  // -2016-01-02T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-02T00:00:00.000+00:00\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for a string value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', '2016-01-02');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy \'2016-01-02\'\n' +
+                '\n' +
+                'moment(\n' +
+                '  \'2016-01-01\' // should be \'2016-01-02\'\n' +
+                '               // -2016-01-01\n' +
+                '               // +2016-01-02\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an array value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', [2016, 0, 2]);
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy [ 2016, 0, 2 ]\n' +
+                '\n' +
+                'moment(\n' +
+                '  [\n' +
+                '    2016,\n' +
+                '    0,\n' +
+                '    1 // should equal 2\n' +
+                '  ]\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an empty array value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', []);
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy []'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an empty object value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', {});
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy {}'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an empty string value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', '');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy \'\''
+            );
+        });
+
+        it('throws the correct error if the assertion fails for due to a bad string value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', 'not a date');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy \'not a date\''
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an object value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 2, minute: 10, millisecond: 3 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { year: 2016, month: 0, date: 2, minute: 10, millisecond: 3 }\n' +
+                '\n' +
+                'moment(\n' +
+                '  {\n' +
+                '    years: 2016,\n' +
+                '    months: 0,\n' +
+                '    date: 1, // should equal 2\n' +
+                '    minutes: 0, // should equal 10\n' +
+                '    milliseconds: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails due to an object having a bad unit', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, date: 1, minutez: 0, millisecond: 0 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { year: 2016, month: 0, date: 1, minutez: 0, millisecond: 0 }\n' +
+                '\n' +
+                '{\n' +
+                '  year: 2016,\n' +
+                '  month: 0,\n' +
+                '  date: 1,\n' +
+                '  minutez: 0, // not a valid unit\n' +
+                '  millisecond: 0\n' +
+                '}'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for a number (milliseconds)', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', 1451689200000);
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to satisfy 1451689200000\n' +
+                '\n' +
+                'moment(\n' +
+                '  1451602800000 // should be 1451689200000\n' +
+                '                // -1451602800000\n' +
+                '                // +1451689200000\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for a Date value', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', new Date('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')\n' +
+                '\n' +
+                'moment(\n' +
+                '  new Date(\n' +
+                '    \'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\' // should be \'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\'\n' +
+                '                                              // -Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\n' +
+                '                                              // +Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\n' +
+                '  )\n' +
+                ')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for an array value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', [2016, 0, 1, 0, 0, 0, 0]);
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  [ 2016, 0, 1, 0, 0, 0, 0 ]\n' +
+                ')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for an object value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', { year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\') to satisfy\n' +
+                '{\n' +
+                '  year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0,\n' +
+                '  millisecond: 0\n' +
+                '}\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  {\n' +
+                '    years: 2016, months: 0, date: 1, hours: 0, minutes: 0, seconds: 0,\n' +
+                '    milliseconds: 0\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for a Date value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', new Date('Fri Jan 01 2016 00:00:00 GMT+0100 (CET)'));
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  new Date(\n' +
+                '    \'Fri Jan 01 2016 01:00:00 GMT+0100 (CET)\' // should be \'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\'\n' +
+                '                                              // -Fri Jan 01 2016 01:00:00 GMT+0100 (CET)\n' +
+                '                                              // +Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\n' +
+                '  )\n' +
+                ')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for a string value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', '2016-01-01T00:00:00');
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
+                'to satisfy \'2016-01-01T00:00:00\'\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  \'2016-01-01T00:00:00\'\n' +
+                ')'
+            );
+        });
+
+        it('does not include the diff if the outputs are equal for a number value', function () {
+            expect(
+                function () {
+                    expect(moment.utc('2016-01-01T00:00:00+00:00'), 'to satisfy', 1451602800000);
+                },
+                'to error with',
+                'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\') ' +
+                'to satisfy 1451602800000\n' +
+                '\n' +
+                'moment.utc( // should be in local time\n' +
+                '  1451606400000 // should be 1451602800000\n' +
+                '                // -1451606400000\n' +
+                '                // +1451602800000\n' +
+                ')'
+            );
+        });
     });
 
-    it('does not mutate the moment objects when checking for equality against the start of a unit of time', function () {
-        var moment1 = moment(1000).startOf('isoWeek');
-        var moment1Formartted = moment1.format();
-        expect(moment1, 'to be the start of isoWeek');
-        expect(moment1Formartted, 'to equal', moment1.format());
+    describe('not to satisfy', function () {
+        it('passes if the moments are not equal', function () {
+            expect(moment(0), 'not to satisfy', moment(1));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'not to satisfy', moment('2016-01-01'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'not to satisfy moment(\'2016-01-01T00:00:00.000+01:00\')'
+            );
+        });
     });
 
-    it('does not mutate the moment objects when checking for equality against the end of a unit of time', function () {
-        var moment1 = moment(1000);
-        var moment1Formartted = moment1.format();
-        expect(moment1, 'not to be the end of day');
-        expect(moment1Formartted, 'to equal', moment1.format());
+    describe('to be before', function () {
+        it('passes if the value occurs before the subject', function () {
+            expect(moment(0), 'to be before', moment(1));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-03'), 'to be before', new Date('2016-01-02 00:00:00'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-03T00:00:00.000+01:00\')\n' +
+                'to be before new Date(\'Sat Jan 02 2016 00:00:00 GMT+0100 (CET)\')'
+            );
+        });
+    });
+
+    describe('not to be before', function () {
+        it('passes if the value does not occur before the subject', function () {
+            expect(moment(1), 'not to be before', moment(0));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'not to be before', '2016-01-02 00:00:00');
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'not to be before \'2016-01-02 00:00:00\''
+            );
+        });
+    });
+
+    describe('to be after', function () {
+        it('passes if the value occurs after the subject', function () {
+            expect(moment(1), 'to be after', moment(0));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be after', [2016, 0, 2, 0, 0, 0]);
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be after [ 2016, 0, 2, 0, 0, 0 ]'
+            );
+        });
+    });
+
+    describe('not to be after', function () {
+        it('passes if the value does not occur after the subject', function () {
+            expect(moment(0), 'not to be after', moment(1));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'not to be after', { year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
+                'not to be after\n' +
+                '{\n' +
+                '  year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0,\n' +
+                '  millisecond: 0\n' +
+                '}'
+            );
+        });
+    });
+
+    describe('to be same or before', function () {
+        it('passes if the value occurs before the subject', function () {
+            expect(moment(0), 'to be same or before', moment(1));
+        });
+
+        it('passes if the value is the same as the subject', function () {
+            expect(moment(0), 'to be same or before', moment(0));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be same or before', 1451602800); // 1451602800 -> new Date('2016-01-01 00:00:00')
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\') ' +
+                'to be same or before 1451602800'
+            );
+        });
+    });
+
+    describe('not to be same or before', function () {
+        it('passes if the value does not occur before the subject', function () {
+            expect(moment(1), 'not to be same or before', moment(0));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'not to be same or before', 1451689200000); // 1451689200000 -> new Date('2016-01-02 00:00:00')
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'not to be same or before 1451689200000'
+            );
+        });
+    });
+
+    describe('to be same or after', function () {
+        it('passes if the value occurs after the subject', function () {
+            expect(moment(1), 'to be same or after', moment(0));
+        });
+
+        it('passes if the value is the same as the subject', function () {
+            expect(moment(0), 'to be same or after', moment(0));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be same or after', new Date('2016-01-02 00:00:00'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be same or after new Date(\'Sat Jan 02 2016 00:00:00 GMT+0100 (CET)\')'
+            );
+        });
+    });
+
+    describe('not to be same or after', function () {
+        it('passes if the value does not occur after the subject', function () {
+            expect(moment(0), 'not to be same or after', moment(1));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'not to be same or after', moment('2016-01-01 00:00:00'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'not to be same or after moment(\'2016-01-01T00:00:00.000+01:00\')'
+            );
+        });
+    });
+
+    describe('to be between', function () {
+        it('passes if the subject occurs between the two values', function () {
+            expect(moment(1), 'to be between', moment(0), moment(2));
+        });
+
+        it('throws if \'from\' is an empty array', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be between', [], moment('2016-01-03'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be between [] and moment(\'2016-01-03T00:00:00.000+01:00\')'
+            );
+        });
+
+        it('throws if \'to\' is an empty object', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be between', moment('2016-01-02'), {});
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be between moment(\'2016-01-02T00:00:00.000+01:00\') and {}'
+            );
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to be between', moment('2016-01-02'), moment('2016-01-03'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to be between moment(\'2016-01-02T00:00:00.000+01:00\') and moment(\'2016-01-03T00:00:00.000+01:00\')'
+            );
+        });
+    });
+
+    describe('not to be between', function () {
+        it('passes if the subject does not occur between the two values', function () {
+            expect(moment(0), 'not to be between', moment(1), new Date(2));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'not to be between', moment('2016-01-01'), moment('2016-01-03'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'not to be between moment(\'2016-01-01T00:00:00.000+01:00\') and moment(\'2016-01-03T00:00:00.000+01:00\')'
+            );
+        });
+    });
+
+    describe('to be inclusively between', function () {
+        it('passes if the subject is the same as the first value', function () {
+            expect(moment(0), 'to be inclusively between', moment(0), moment(1));
+        });
+
+        it('passes if the subject is the same as the second value', function () {
+            expect(moment(1), 'to be inclusively between', moment(0), moment(1));
+        });
+
+        it('passes if the subject occurs betwen the two values', function () {
+            expect(moment(1), 'to be inclusively between', moment(0), moment(2));
+        });
+
+        it('passes if the two values are the same', function () {
+            expect(moment(0), 'to be inclusively between', moment(0), moment(0));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'to be inclusively between', new Date('2016-01-01 00:00:00'), new Date('2016-01-01 12:00:00'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'to be inclusively between new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\') ' +
+                'and new Date(\'Fri Jan 01 2016 12:00:00 GMT+0100 (CET)\')'
+            );
+        });
+    });
+
+    describe('not to be inclusively between', function () {
+        it('passes if the subject is neither the same as the first value or the second, nor does it occur between them', function () {
+            expect(moment(0), 'not to be inclusively between', moment(1), moment(1));
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'not to be inclusively between', moment('2016-01-02'), moment('2016-01-02'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
+                'not to be inclusively between moment(\'2016-01-02T00:00:00.000+01:00\') ' +
+                'and moment(\'2016-01-02T00:00:00.000+01:00\')'
+            );
+        });
+    });
+
+    describe('when formatted', function () {
+        it('formats a moment with the default format and delegates to the next assertion', function () {
+            expect(moment(1000), 'when formatted to equal', '1970-01-01T01:00:01+01:00');
+        });
+
+        it('returns the formatted moment as the fulfilment value if an assertion is not provided', function () {
+            expect(moment(0), 'when formatted')
+            .then(function (formatted) {
+                expect(formatted, 'to equal', '1970-01-01T00:00:00+01:00');
+            });
+        });
+
+        it('also works without the \'when\'', function () {
+            expect(moment(0), 'formatted', 'to equal', '1970-01-01T01:00:00+01:00');
+        });
+    });
+
+    describe('when formatted with', function () {
+        it('formats a moment with the provided format and delegates to the next assertion', function () {
+            expect(moment(1), 'when formatted with', 'YYYY', 'to be', '1970');
+        });
+
+        it('formats a moment with the default format if called with an empty string format', function () {
+            expect(moment.utc(0), 'when formatted with', '', 'to equal', '1970-01-01T00:00:00Z');
+        });
+
+        it('returns the formatted moment as the fulfilment value if an assertion is not provided', function () {
+            expect(moment(0), 'when formatted with', 'YYYYMMDD')
+            .then(function (formatted) {
+                expect(formatted, 'to equal', '19700101');
+            });
+        });
+
+        it('also works without the \'when\'', function () {
+            expect(moment(0), 'formatted with', 'YYYYMMDD', 'to equal', '19700101');
+        });
+    });
+
+    describe('to be the start of', function () {
+        it('start of second', function () {
+            expect(moment('2016-01-01 00:00:01+01:00'), 'to be the start of second');
+        });
+
+        it('start of minute', function () {
+            expect(moment('2016-01-01 00:01:00+01:00'), 'to be the start of minute');
+        });
+
+        it('start of hour', function () {
+            expect(moment('2016-01-01 01:00:00+01:00'), 'to be the start of hour');
+        });
+
+        it('start of day', function () {
+            expect(moment('2016-01-02 00:00:00+01:00'), 'to be the start of day');
+        });
+
+        it('start of week', function () {
+            expect(moment('2016-01-03 00:00:00+01:00'), 'to be the start of week');
+        });
+
+        it('start of isoWeek', function () {
+            expect(moment('2016-01-04 00:00:00+01:00'), 'to be the start of isoWeek');
+        });
+
+        it('start of month', function () {
+            expect(moment('2016-01-01 00:00:00+01:00'), 'to be the start of month');
+        });
+
+        it('start of quarter', function () {
+            expect(moment('2016-01-01 00:00:00+01:00'), 'to be the start of quarter');
+        });
+
+        it('start of year', function () {
+            expect(moment('2016-01-01 00:00:00+01:00'), 'to be the start of year');
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'to be the start of year');
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
+                'to be the start of year\n' +
+                '\n' +
+                'moment(\n' +
+                '  \'2016-01-02T00:00:00.000+01:00\' // should be \'2016-01-01T00:00:00.000+01:00\'\n' +
+                '                                  // -2016-01-02T00:00:00.000+01:00\n' +
+                '                                  // +2016-01-01T00:00:00.000+01:00\n' +
+                ')'
+            );
+        });
+
+        it('does not mutate the moment objects', function () {
+            var startOfDay = moment('2016-01-02T00:00:00.000+01:00');
+            expect(startOfDay, 'to be the start of day');
+            expect(startOfDay.format(), 'to be', '2016-01-02T00:00:00+01:00');
+        });
+    });
+
+    describe('not to be the start of', function () {
+        it('passes if the passed moment is not start of the unit of time provided', function () {
+            expect(moment('2016-01-01 00:00:01.002+01:00'), 'not to be the start of second');
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'not to be the start of day');
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
+                'not to be the start of day'
+            );
+        });
+    });
+
+    describe('to be the end of', function () {
+        it('end of second', function () {
+            expect(moment('2016-01-01 00:00:01.999+01:00'), 'to be the end of second');
+        });
+
+        it('end of minute', function () {
+            expect(moment('2016-01-01 00:01:59.999+01:00'), 'to be the end of minute');
+        });
+
+        it('end of hour', function () {
+            expect(moment('2016-01-01 01:59:59.999+01:00'), 'to be the end of hour');
+        });
+
+        it('end of day', function () {
+            expect(moment('2016-01-02 23:59:59.999+01:00'), 'to be the end of day');
+        });
+
+        it('end of week', function () {
+            expect(moment('2016-01-09 23:59:59.999+01:00'), 'to be the end of week');
+        });
+
+        it('end of isoWeek', function () {
+            expect(moment('2016-01-10 23:59:59.999+01:00'), 'to be the end of isoWeek');
+        });
+
+        it('end of month', function () {
+            expect(moment('2016-01-31 23:59:59.999+01:00'), 'to be the end of month');
+        });
+
+        it('end of quarter', function () {
+            expect(moment('2016-03-31 23:59:59.999+02:00'), 'to be the end of quarter');
+        });
+
+        it('end of year', function () {
+            expect(moment('2016-12-31 23:59:59.999+01:00'), 'to be the end of year');
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02'), 'to be the end of year');
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T00:00:00.000+01:00\') ' +
+                'to be the end of year\n' +
+                '\n' +
+                'moment(\n' +
+                '  \'2016-01-02T00:00:00.000+01:00\' // should be \'2016-12-31T23:59:59.999+01:00\'\n' +
+                '                                  // -2016-01-02T00:00:00.000+01:00\n' +
+                '                                  // +2016-12-31T23:59:59.999+01:00\n' +
+                ')'
+            );
+        });
+
+        it('does not mutate the moment objects', function () {
+            var endOfYear = moment('2016-12-31T23:59:59.999+01:00');
+            expect(endOfYear, 'to be the end of year');
+            expect(endOfYear.format(), 'to be', '2016-12-31T23:59:59+01:00');
+        });
+    });
+
+    describe('not to be the end of', function () {
+        it('passes if the passed moment is not end of the unit of time provided', function () {
+            expect(moment('2016-01-01 00:00:01.002+01:00'), 'not to be the end of second');
+        });
+
+        it('throws the correct error if the assertion fails', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-02T23:59:59.999+01:00'), 'not to be the end of day');
+                },
+                'to error with',
+                'expected moment(\'2016-01-02T23:59:59.999+01:00\') ' +
+                'not to be the end of day'
+            );
+        });
+    });
+
+    it('does not interfere with unexpected\'s date type', function () {
+        expect(
+            function () {
+                expect(new Date('2016-01-01'), 'to equal', new Date('2016-01-02'));
+            },
+            'to error with',
+            'expected new Date(\'Fri, 01 Jan 2016 00:00:00 GMT\')\n' +
+            'to equal new Date(\'Sat, 02 Jan 2016 00:00:00 GMT\')'
+        );
     });
 });

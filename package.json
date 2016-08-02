@@ -8,11 +8,11 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha test/**/*.js documentation/**/*.md && npm run lint",
-    "travis": "npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
-    "coverage": "NODE_ENV=development istanbul cover _mocha -- --reporter dot",
-    "generate-site": "generate-site --require ./bootstrap-unexpected-markdown.js",
-    "update-examples": "generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
+    "test": "TZ='Europe/Copenhagen' mocha test/**/*.js documentation/**/*.md && npm run lint",
+    "travis": "TZ='Europe/Copenhagen' npm test && npm run coverage && (<coverage/lcov.info coveralls || true) && npm run generate-site",
+    "coverage": "TZ='Europe/Copenhagen' NODE_ENV=development istanbul cover _mocha -- --reporter dot",
+    "generate-site": "TZ='Europe/Copenhagen' generate-site --require ./bootstrap-unexpected-markdown.js",
+    "update-examples": "TZ='Europe/Copenhagen' generate-site --require ./bootstrap-unexpected-markdown.js --update-examples"
   },
   "repository": {
     "type": "git",
@@ -59,7 +59,6 @@
     "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
     "moment-timezone": "^0.4.1",
-    "sinon": "^1.17.0",
     "unexpected": "^10.14.2",
     "unexpected-documentation-site-generator": "^4.0.0",
     "unexpected-markdown": "^1.4.0"

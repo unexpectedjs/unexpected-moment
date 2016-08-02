@@ -13,6 +13,6 @@ expect(moment('2015-04-01'), 'to be same or before', moment('2015-01-01'));
 ```
 
 ```output
-expected moment(2015-04-01T00:00:00.000+02:00)
-to be same or before moment(2015-01-01T00:00:00.000+01:00)
+expected moment('2015-04-01T00:00:00.000+02:00')
+to be same or before moment('2015-01-01T00:00:00.000+01:00')
 ```

@@ -13,5 +13,11 @@ expect(moment('2015-01-01 01'), 'to be the start of year');
 ```
 
 ```output
-expected moment(2015-01-01T01:00:00.000+01:00) to be the start of year
+expected moment('2015-01-01T01:00:00.000+01:00') to be the start of year
+
+moment(
+  '2015-01-01T01:00:00.000+01:00' // should be '2015-01-01T00:00:00.000+01:00'
+                                  // -2015-01-01T01:00:00.000+01:00
+                                  // +2015-01-01T00:00:00.000+01:00
+)
 ```
