@@ -522,13 +522,32 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to satisfy new Date(\'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\')\n' +
+                'to satisfy new Date(\'Sat Jan 02 2016 01:00:00.000 GMT+0100 (CET)\')\n' +
                 '\n' +
                 'moment(\n' +
                 '  new Date(\n' +
-                '    \'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\' // should be \'Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\'\n' +
-                '                                              // -Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\n' +
-                '                                              // +Sat Jan 02 2016 01:00:00 GMT+0100 (CET)\n' +
+                '    \'Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\' // should be \'Sat Jan 02 2016 01:00:00.000 GMT+0100 (CET)\'\n' +
+                '                                                  // -Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\n' +
+                '                                                  // +Sat Jan 02 2016 01:00:00.000 GMT+0100 (CET)\n' +
+                '  )\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for a Date value with milliseconds diff', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', new Date('Fri Jan 01 2016 00:00:00.010 GMT+0100 (CET)'));
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00.010 GMT+0100 (CET)\')\n' +
+                '\n' +
+                'moment(\n' +
+                '  new Date(\n' +
+                '    \'Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\' // should be \'Fri Jan 01 2016 00:00:00.010 GMT+0100 (CET)\'\n' +
+                '                                                  // -Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\n' +
+                '                                                  // +Fri Jan 01 2016 00:00:00.010 GMT+0100 (CET)\n' +
                 '  )\n' +
                 ')'
             );
@@ -577,13 +596,13 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment.utc(\'2016-01-01T00:00:00.000+00:00\')\n' +
-                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\')\n' +
+                'to satisfy new Date(\'Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\')\n' +
                 '\n' +
                 'moment.utc( // should be in local time\n' +
                 '  new Date(\n' +
-                '    \'Fri Jan 01 2016 01:00:00 GMT+0100 (CET)\' // should be \'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\'\n' +
-                '                                              // -Fri Jan 01 2016 01:00:00 GMT+0100 (CET)\n' +
-                '                                              // +Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\n' +
+                '    \'Fri Jan 01 2016 01:00:00.000 GMT+0100 (CET)\' // should be \'Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\'\n' +
+                '                                                  // -Fri Jan 01 2016 01:00:00.000 GMT+0100 (CET)\n' +
+                '                                                  // +Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\n' +
                 '  )\n' +
                 ')'
             );
@@ -651,7 +670,7 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-03T00:00:00.000+01:00\')\n' +
-                'to be before new Date(\'Sat Jan 02 2016 00:00:00 GMT+0100 (CET)\')'
+                'to be before new Date(\'Sat Jan 02 2016 00:00:00.000 GMT+0100 (CET)\')'
             );
         });
     });
@@ -765,7 +784,7 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
-                'to be same or after new Date(\'Sat Jan 02 2016 00:00:00 GMT+0100 (CET)\')'
+                'to be same or after new Date(\'Sat Jan 02 2016 00:00:00.000 GMT+0100 (CET)\')'
             );
         });
     });
@@ -867,8 +886,8 @@ describe('unexpected-moment', function () {
                 },
                 'to error with',
                 'expected moment(\'2016-01-02T00:00:00.000+01:00\')\n' +
-                'to be inclusively between new Date(\'Fri Jan 01 2016 00:00:00 GMT+0100 (CET)\') ' +
-                'and new Date(\'Fri Jan 01 2016 12:00:00 GMT+0100 (CET)\')'
+                'to be inclusively between new Date(\'Fri Jan 01 2016 00:00:00.000 GMT+0100 (CET)\') ' +
+                'and new Date(\'Fri Jan 01 2016 12:00:00.000 GMT+0100 (CET)\')'
             );
         });
     });
