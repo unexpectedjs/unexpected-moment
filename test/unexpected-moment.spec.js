@@ -353,11 +353,125 @@ describe('unexpected-moment', function () {
                 '\n' +
                 'moment(\n' +
                 '  {\n' +
+                '    year: 2016,\n' +
+                '    month: 0,\n' +
+                '    date: 1, // should equal 2\n' +
+                '    minute: 0, // should equal 10\n' +
+                '    millisecond: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an object with plural fields', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { years: 2016, months: 0, date: 2, minutes: 10, milliseconds: 3 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { years: 2016, months: 0, date: 2, minutes: 10, milliseconds: 3 }\n' +
+                '\n' +
+                'moment(\n' +
+                '  {\n' +
                 '    years: 2016,\n' +
                 '    months: 0,\n' +
                 '    date: 1, // should equal 2\n' +
                 '    minutes: 0, // should equal 10\n' +
                 '    milliseconds: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an object with a \'day\' field', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, day: 2, minute: 10, millisecond: 3 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { year: 2016, month: 0, day: 2, minute: 10, millisecond: 3 }\n' +
+                '\n' +
+                'moment(\n' +
+                '  {\n' +
+                '    year: 2016,\n' +
+                '    month: 0,\n' +
+                '    day: 1, // should equal 2\n' +
+                '    minute: 0, // should equal 10\n' +
+                '    millisecond: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an object with a \'days\' field', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, days: 2, minute: 10, millisecond: 3 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { year: 2016, month: 0, days: 2, minute: 10, millisecond: 3 }\n' +
+                '\n' +
+                'moment(\n' +
+                '  {\n' +
+                '    year: 2016,\n' +
+                '    month: 0,\n' +
+                '    days: 1, // should equal 2\n' +
+                '    minute: 0, // should equal 10\n' +
+                '    millisecond: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an object with a \'dates\' field', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { year: 2016, month: 0, dates: 2, minute: 10, millisecond: 3 });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { year: 2016, month: 0, dates: 2, minute: 10, millisecond: 3 }\n' +
+                '\n' +
+                'moment(\n' +
+                '  {\n' +
+                '    year: 2016,\n' +
+                '    month: 0,\n' +
+                '    dates: 1, // should equal 2\n' +
+                '    minute: 0, // should equal 10\n' +
+                '    millisecond: 0 // should equal 3\n' +
+                '  }\n' +
+                ')'
+            );
+        });
+
+        it('throws the correct error if the assertion fails for an object with string values', function () {
+            expect(
+                function () {
+                    expect(moment('2016-01-01'), 'to satisfy', { year: '2016', month: '0', date: '2', minute: '10', millisecond: '3' });
+                },
+                'to error with',
+                'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
+                'to satisfy { year: \'2016\', month: \'0\', date: \'2\', minute: \'10\', millisecond: \'3\' }\n' +
+                '\n' +
+                'moment(\n' +
+                '  {\n' +
+                '    year: \'2016\',\n' +
+                '    month: \'0\',\n' +
+                '    date: \'1\', // should equal \'2\'\n' +
+                '               //\n' +
+                '               // -1\n' +
+                '               // +2\n' +
+                '    minute: \'0\', // should equal \'10\'\n' +
+                '                 //\n' +
+                '                 // -0\n' +
+                '                 // +10\n' +
+                '    millisecond: \'0\' // should equal \'3\'\n' +
+                '                     //\n' +
+                '                     // -0\n' +
+                '                     // +3\n' +
                 '  }\n' +
                 ')'
             );
@@ -449,8 +563,8 @@ describe('unexpected-moment', function () {
                 '\n' +
                 'moment.utc( // should be in local time\n' +
                 '  {\n' +
-                '    years: 2016, months: 0, date: 1, hours: 0, minutes: 0, seconds: 0,\n' +
-                '    milliseconds: 0\n' +
+                '    year: 2016, month: 0, day: 1, hour: 0, minute: 0, second: 0,\n' +
+                '    millisecond: 0\n' +
                 '  }\n' +
                 ')'
             );
