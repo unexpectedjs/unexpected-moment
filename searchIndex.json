@@ -1,7 +1,7 @@
 [
   {
-    "label": "to be the start of (moment)",
-    "url": "/assertions/moment/to-be-the-start-of/"
+    "label": "to be the end of (moment)",
+    "url": "/assertions/moment/to-be-the-end-of/"
   },
   {
     "label": "to be a moment (any)",
@@ -28,8 +28,8 @@
     "url": "/assertions/moment/to-be-after/"
   },
   {
-    "label": "to be the end of (moment)",
-    "url": "/assertions/moment/to-be-the-end-of/"
+    "label": "to be the start of (moment)",
+    "url": "/assertions/moment/to-be-the-start-of/"
   },
   {
     "label": "to equal (moment)",
