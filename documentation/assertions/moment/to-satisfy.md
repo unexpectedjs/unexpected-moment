@@ -24,9 +24,9 @@ to satisfy { year: 2015, month: 11, day: 1 }
 
 moment(
   {
-    years: 2015,
-    months: 10, // should equal 11
-    date: 1
+    year: 2015,
+    month: 10, // should equal 11
+    day: 1
   }
 )
 ```
@@ -61,14 +61,16 @@ expect(theMoment, 'to satisfy', theObject);
 expected moment('2016-08-03T00:00:00.000+02:00')
 to satisfy { year: 2016, month: 7, date: 3, minyte: 4, second: 0, millisecond: 0 }
 
-{
-  year: 2016,
-  month: 7,
-  date: 3,
-  minyte: 4, // not a valid unit
-  second: 0,
-  millisecond: 0
-}
+moment(
+  {
+    year: 2016,
+    month: 7,
+    date: 3,
+    minyte: 4, // not a valid unit
+    second: 0,
+    millisecond: 0
+  }
+)
 ```
 
 This is aimed at giving you more confidence in your tests.
