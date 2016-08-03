@@ -372,13 +372,15 @@ describe('unexpected-moment', function () {
                 'expected moment(\'2016-01-01T00:00:00.000+01:00\')\n' +
                 'to satisfy { year: 2016, month: 0, date: 1, minutez: 0, millisecond: 0 }\n' +
                 '\n' +
-                '{\n' +
-                '  year: 2016,\n' +
-                '  month: 0,\n' +
-                '  date: 1,\n' +
-                '  minutez: 0, // not a valid unit\n' +
-                '  millisecond: 0\n' +
-                '}'
+                'moment(\n' +
+                '  {\n' +
+                '    year: 2016,\n' +
+                '    month: 0,\n' +
+                '    date: 1,\n' +
+                '    minutez: 0, // not a valid unit\n' +
+                '    millisecond: 0\n' +
+                '  }\n' +
+                ')'
             );
         });
 
