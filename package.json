@@ -19,7 +19,10 @@
     "url": "git+https://github.com/unexpectedjs/unexpected-moment.git"
   },
   "keywords": [
+    "test",
+    "testing",
     "unexpected",
+    "moment",
     "moment.js"
   ],
   "author": {
