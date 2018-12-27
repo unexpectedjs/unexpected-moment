@@ -1,6 +1,8 @@
 var moment = require('moment-timezone'),
-    unexpected = require('unexpected'),
+    unexpected = require('unexpected').clone(),
     unexpectedMoment = require('../lib/unexpected-moment');
+
+unexpected.output.preferredWidth = 80;
 
 describe('unexpected-moment', function () {
     var expect = unexpected.clone()
