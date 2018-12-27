@@ -53,7 +53,7 @@
   },
   "peerDependencies": {
     "moment": "^2.13.0",
-    "unexpected": "^10.14.2"
+    "unexpected": "^10.40.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
