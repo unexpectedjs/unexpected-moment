@@ -1,4 +1,4 @@
-/*global unexpected:true, moment:true*/
+/* global unexpected:true, moment:true */
 unexpected = require('unexpected').clone();
 unexpected.output.preferredWidth = 80;
 unexpected.use(require('./lib/unexpected-moment'));

@@ -1,11 +1,11 @@
-var moment = require('moment-timezone'),
-    unexpected = require('unexpected').clone(),
-    unexpectedMoment = require('../lib/unexpected-moment');
+const moment = require('moment-timezone');
+    const unexpected = require('unexpected').clone();
+    const unexpectedMoment = require('../lib/unexpected-moment');
 
 unexpected.output.preferredWidth = 80;
 
 describe('unexpected-moment', function () {
-    var expect = unexpected.clone()
+    const expect = unexpected.clone()
         .use(unexpectedMoment);
 
     before(function () {
@@ -43,7 +43,7 @@ describe('unexpected-moment', function () {
         });
 
         it('passes if the value is a clone of the subject', function () {
-            var m = moment();
+            const m = moment();
             expect(m, 'to equal', m.clone());
         });
 
@@ -157,7 +157,7 @@ describe('unexpected-moment', function () {
         });
 
         it('passes if the value is a clone of the subject', function () {
-            var aMoment = moment('2016-01-01');
+            const aMoment = moment('2016-01-01');
             expect(aMoment, 'to satisfy', aMoment.clone());
         });
 
@@ -1004,7 +1004,7 @@ describe('unexpected-moment', function () {
         });
 
         it('does not mutate the moment objects', function () {
-            var startOfDay = moment('2016-01-02T00:00:00.000+01:00');
+            const startOfDay = moment('2016-01-02T00:00:00.000+01:00');
             expect(startOfDay, 'to be the start of day');
             expect(startOfDay.format(), 'to be', '2016-01-02T00:00:00+01:00');
         });
@@ -1082,7 +1082,7 @@ describe('unexpected-moment', function () {
         });
 
         it('does not mutate the moment objects', function () {
-            var endOfYear = moment('2016-12-31T23:59:59.999+01:00');
+            const endOfYear = moment('2016-12-31T23:59:59.999+01:00');
             expect(endOfYear, 'to be the end of year');
             expect(endOfYear.format(), 'to be', '2016-12-31T23:59:59+01:00');
         });
