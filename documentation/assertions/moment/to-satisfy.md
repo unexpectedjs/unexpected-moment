@@ -43,16 +43,23 @@ aware of:
 
 ```js
 expect(function () {
-    expect(moment(), 'to satisfy', []);
+  expect(moment(), 'to satisfy', []);
 }, 'to error'); // even though moment().isSame([]) === true
 expect(function () {
-    expect(moment(), 'to satisfy', {});
+  expect(moment(), 'to satisfy', {});
 }, 'to error'); // even though moment().isSame({}) === true
 ```
 
 ```js
 var theMoment = moment('2016-08-03');
-var theObject = { year: 2016, month: 7, date: 3, minyte: 4, second: 0, millisecond: 0 };
+var theObject = {
+  year: 2016,
+  month: 7,
+  date: 3,
+  minyte: 4,
+  second: 0,
+  millisecond: 0,
+};
 // this fails even though theMoment.isSame(theObject) === true
 expect(theMoment, 'to satisfy', theObject);
 ```

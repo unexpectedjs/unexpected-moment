@@ -1,7 +1,11 @@
 Format a moment instance using [the default ISO8601 format](http://momentjs.com/docs/#/displaying/format/), then delegate the formatted value to another assertion.
 
 ```js
-expect(moment('2015-11-02'), 'when formatted to be', '2015-11-02T00:00:00+01:00');
+expect(
+  moment('2015-11-02'),
+  'when formatted to be',
+  '2015-11-02T00:00:00+01:00'
+);
 ```
 
 When the assertion fails you'll get this output:
