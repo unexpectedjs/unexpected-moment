@@ -3,3 +3,6 @@
 /.nyc_output/
 /test/documentation.spec.js
 /site-build/
+
+# Don't fight npm i --save
+/package.json
